@@ -30,6 +30,9 @@ class Lieu
     #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Sortie::class)]
     private Collection $sorties;
 
+    #[ORM\ManyToOne(inversedBy: 'lieus')]
+    private ?Ville $lieu = null;
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
@@ -114,6 +117,18 @@ class Lieu
                 $sorty->setSortie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLieu(): ?Ville
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Ville $lieu): self
+    {
+        $this->lieu = $lieu;
 
         return $this;
     }
