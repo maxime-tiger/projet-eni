@@ -32,8 +32,8 @@ class Sortie
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $infosSortie = null;
 
-    #[ORM\Column]
-    private ?bool $etat = null;
+    #[ORM\Column(length: 255)]
+    private ?string $Etat = null;
 
     public function getId(): ?int
     {
@@ -112,15 +112,17 @@ class Sortie
         return $this;
     }
 
-    public function isEtat(): ?bool
+    public function getEtat(): ?string
     {
-        return $this->etat;
+        return $this->Etat;
     }
 
-    public function setEtat(bool $etat): self
+    public function setEtat(string $Etat): self
     {
-        $this->etat = $etat;
+        $this->Etat = $Etat;
 
         return $this;
     }
+
+    
 }
