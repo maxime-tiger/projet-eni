@@ -30,11 +30,19 @@ class UserController extends AbstractController
             if($form->isSubmitted() && $form->isValid()){
                 //Encodage du mot de passe
                 $user->setPassword($passwordEncoder->encodePassword($user, $form->get('password')->getData()));
+                //refresh pour ne pas etre deconnecte immediattement
+                $EntityManager->refresh($user);
+                $entityManager->flush();
+                //Message
+                $this->addflash('sucess','votre profil a ete modifie avec succes!');
+
             }
+            return $this->render('user/profilConnectedUser.html.twig', ['userProfilForm'=>$form->createView()]);
         }
+        //si l user souhaite accedeer au profil d un utilisateur
+        $user = $entityManager->getRepository('App:User')->findOneby(['username' =>$request->get('username')]);
+        return $this->render('user/profil.html.twig', ['user'=>$user]);
 
     }
-
-
 
 }
