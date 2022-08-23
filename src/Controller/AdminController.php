@@ -2,20 +2,33 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Entity\Campus;
+use App\Entity\Participant;
+use App\Entity\Ville;
+use App\Filters\NameFilter;
+use App\Form\NameFilterType;
+use App\Form\CampusType;
+use App\Form\UserRegisterType;
+use App\Form\VilleType;
 use App\Repository\CampusRepository;
 use App\Repository\VilleRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+* Class AdminController
+* @Route(path="admin/", name="admin_")
+*/
 class AdminController extends AbstractController
 {
     //créer un campus
     /**
-     * @Route(path="", name="")
+     * @Route(path="/", name="")
      * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @param CampusRepository $campusRepository
@@ -57,7 +70,7 @@ class AdminController extends AbstractController
     //Modifier le nom d'un campus
 
     /**
-     * @Route(Path="/{id}" , name="")
+     * @Route(path="/{id}" , name="")
      * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @return Response
@@ -83,7 +96,7 @@ class AdminController extends AbstractController
                 'campusList' => $campusList
             ]);
         }
-        return $this->render("admin/modifierCampus.html.twig", [
+        return $this->render("campus/edit.html.twig", [
                 'campusForm' => $campusForm->createView()]
         );
 
@@ -93,7 +106,7 @@ class AdminController extends AbstractController
     // Supprime un campus
 
     /**
-     * @Route(Path="/{id}" , name="")
+     * @Route(path="/{id}" , name="")
      * @param EntityManagerInterface $entityManager
      * @param int $id
      * @return RedirectResponse
@@ -149,7 +162,7 @@ class AdminController extends AbstractController
     //Modifier le nom d'une ville
 
     /**
-     * @Route(Path="", name="")
+     * @Route(path="", name="")
      * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @return RedirectResponse|Response
@@ -180,7 +193,7 @@ class AdminController extends AbstractController
     //Supprimer une ville
 
     /**
-     * @Route(Path="/{id}" , name="")
+     * @Route(path="/{id}" , name="")
      * @param EntityManagerInterface $entityManager
      * @param $id
      * @return RedirectResponse
@@ -206,7 +219,7 @@ class AdminController extends AbstractController
     public function userList(EntityManagerInterface $entityManager): Response
     {
         //Récupération de la liste de tous les utilisateurs
-        $allUser = $entityManager->getRepository('App:User')->findAll();
+        $allUser = $entityManager->getRepository('Participant::class')->findAll();
         return $this->render('admin/userList.html.twig', ['allUser' => $allUser]);
     }
 
