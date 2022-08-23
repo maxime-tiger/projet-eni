@@ -22,7 +22,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
 * Class AdminController
-* @Route(path="admin/", name="admin_")
+* @Route(path="/admin", name="admin_")
 */
 class AdminController extends AbstractController
 {
