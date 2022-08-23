@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
+
+*{
+    font-family: 'Lexend', sans-serif;
+}
+
+body{
+    background-image: url(../images/mountains.svg);
+    background-size: 100%;
+}
+
+header {
+    display:flex;
+    justify-content: center;
+}
+
+.connexion {
+    width: auto;
+    backdrop-filter: blur(6px);
+    border-radius: 7%;
+    padding: 0 10px 0 10px;
+}
+
+.formulaire {
+    display: flex;
+    justify-content: center;
+    margin:15%;
+}
+
+.input-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.input-identifiant {
+    display: flex;
+    flex-direction: column;
+    height: 25px;
+    padding: 10px 0 10px 0;
+}
+
+.input-password {
+    display: flex;
+    flex-direction: column;
+    height: 25px;
+    padding: 10px 0 10px 0;
+}
+
+.bottom-form {
+    display: flex
+}
+
+.save-me-connexion {
+    padding: 0 10px 0 0;
+}
+
+.forgot-password {
+    padding: 0 0 0 10px;
+}
+
+.connexion-btn {
+    width: 70%;
+    margin: 10px 15% 10px 15%;
+}
+
+.error {
+    color: red;
+    display: flex;
+    justify-content: center;
+}
