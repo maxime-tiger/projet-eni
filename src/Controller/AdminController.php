@@ -4,270 +4,176 @@ namespace App\Controller;
 
 use App\Entity\Campus;
 use App\Entity\Participant;
-use App\Entity\Ville;
-use App\Filters\NameFilter;
-use App\Form\NameFilterType;
 use App\Form\CampusType;
-use App\Form\UserRegisterType;
-use App\Form\VilleType;
+use App\Form\ParticipantType;
 use App\Repository\CampusRepository;
-use App\Repository\VilleRepository;
+use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
 * Class AdminController
-* @Route(path="/admin", name="admin_")
+* @Route(path="/admin", name="admin")
 */
 class AdminController extends AbstractController
 {
-    //créer un campus
+
+    //Acceuil admin
     /**
-     * @Route(path="/", name="")
+     * @Route(path="/", name="app_admin")
      * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @param CampusRepository $campusRepository
      * @return Response
      */
-    public function campus(EntityManagerInterface $entityManager, Request $request, CampusRepository $campusRepository): Response
+    public function index(CampusRepository $campusRepository): Response
     {
-        //Instanciation de l'objet campus, et des filtres
+        
+            return $this->render('admin/index.html.twig', [
+                'campuses' => $campusRepository->findAll(),
+            ]);
+    }
+
+
+    /* ---------------------------------- campus ---------------------------------- */
+
+
+    /* afficher les campus */
+    #[Route('/campus', name: 'app_admin_campus_index', methods: ['GET'])]
+    public function indexCampus(CampusRepository $campusRepository): Response
+    {
+        return $this->render('admin/campus.html.twig', [
+            'campuses' => $campusRepository->findAll(),
+        ]);
+    }
+
+    /* créer un campus */
+    #[Route('/campus/new', name: 'app_admin_campus_new', methods: ['GET', 'POST'])]
+    public function newCampus(Request $request, CampusRepository $campusRepository): Response
+    {
         $campus = new Campus();
-        $text = new NameFilter();
-
-        //Formulaire de recherche
-        $filter = $this->createForm(NameFilterType::class, $text);
-        $filter->handleRequest($request);
-
-        $campusList = $campusRepository->findName($text);
-
-        //Formulaire d'ajout
         $form = $this->createForm(CampusType::class, $campus);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //Persistance des données
-            $entityManager->persist($campus);
-            $entityManager->flush();
-            //Si le formulaire est valide, actualisation de la page
-            return $this->redirectToRoute('admin_campus', ['campusList' => $campusList]);
+            $campusRepository->add($campus, true);
+
+            return $this->redirectToRoute('app_admin_campus_index', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('admin/campus.html.twig',
-            [
-                'filter' => $filter->createView(),
-                'campusForm' => $form->createView(),
-                'campusList' => $campusList
-            ]);
+
+        return $this->renderForm('admin/campusNew.html.twig', [
+            'campus' => $campus,
+            'form' => $form,
+        ]);
     }
 
-
-
-    //Modifier le nom d'un campus
-
-    /**
-     * @Route(path="/{id}" , name="")
-     * @param EntityManagerInterface $entityManager
-     * @param Request $request
-     * @return Response
-     */
-    public function modifierCampus(EntityManagerInterface $entityManager, Request $request): Response
+    /* afficher les details d'un campus */
+    #[Route('/campus/{id}', name: 'app_admin_campus_show', methods: ['GET'])]
+    public function showCampus(Campus $campus): Response
     {
-        //Récupération d'un campus, par son ID
-        $campus = $entityManager->getRepository(Campus::class)->find($request->get('id'));
-
-        //Formulaire de modification du campus
-        $campusForm = $this->createForm(CampusType::class, $campus);
-        $campusForm->handleRequest($request);
-
-        //Si le formulaire est valide, renvoie vers la liste des campus avec message
-        if ($campusForm->isSubmitted() && $campusForm->isValid()) {
-            $entityManager->flush();
-            $this->addFlash('success', 'Le campus a bien été modifié !');
-
-            //Récupération de tous les campus pour renvoyer a la vue
-            $campusList = $entityManager->getRepository(Campus::class)->findAll();
-            return $this->redirectToRoute('admin_campus', [
-                'campusForm' => $campusForm->createView(),
-                'campusList' => $campusList
-            ]);
-        }
-        return $this->render("campus/edit.html.twig", [
-                'campusForm' => $campusForm->createView()]
-        );
-
+        return $this->render('admin/campusShow.html.twig', [
+            'campus' => $campus,
+        ]);
     }
 
-
-    // Supprime un campus
-
-    /**
-     * @Route(path="/{id}" , name="")
-     * @param EntityManagerInterface $entityManager
-     * @param int $id
-     * @return RedirectResponse
-     */
-    public function deleteCampus(EntityManagerInterface $entityManager, int $id): RedirectResponse
+    /* editer un campus */
+    #[Route('/campus/{id}/edit', name: 'app_admin_campus_edit', methods: ['GET', 'POST'])]
+    public function editCampus(Request $request, Campus $campus, CampusRepository $campusRepository): Response
     {
-        //Récupère le campus en fonction de l'ID, puis on le supprime de la BDD
-        $entityManager->remove($campus = $entityManager->getRepository(Campus::class)->find($id));
-        $entityManager->flush();
-        $this->addFlash('success', 'Le campus a bien été supprimé !');
-
-        return $this->redirectToRoute('admin_campus');
-    }
-
-    // Ajouter une ville
-
-    /**
-     * @Route(path="", name="")
-     * @param EntityManagerInterface $entityManager
-     * @param Request $request
-     * @param VilleRepository $villeRepository
-     * @return Response
-     */
-    public function city(EntityManagerInterface $entityManager, Request $request, VilleRepository $villeRepository): Response
-    {
-
-        //Formulaire de recherche
-        $text = new NameFilter();
-        $filter = $this->createForm(NameFilterType::class, $text);
-        $filter->handleRequest($request);
-        //Si le form de filtre est valid et soumis, je fais la recherche
-        $villeList = $villeRepository->findName($text);
-
-        //Formulaire d'ajout d'une ville
-        $city = new Ville();
-        $form = $this->createForm(VilleType::class, $city);
+        $form = $this->createForm(CampusType::class, $campus);
         $form->handleRequest($request);
-        //Si le formulaire d'ajout est valide, actualise la liste des villes + message
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($city);
-            $entityManager->flush();
-            $this->addFlash('success', 'La ville a bien été ajoutée !');
-            return $this->redirectToRoute('admin_villes', ['villeList' => $villeList]);
+            $campusRepository->add($campus, true);
+
+            return $this->redirectToRoute('app_admin_campus_index', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('admin/city.html.twig',
-            [
-                'filter' => $filter->createView(),
-                'villeForm' => $form->createView(),
-                'villeList' => $villeList
-            ]);
+
+        return $this->renderForm('admin/campusModifier.html.twig', [
+            'campus' => $campus,
+            'form' => $form,
+        ]);
     }
 
-    //Modifier le nom d'une ville
-
-    /**
-     * @Route(path="", name="")
-     * @param EntityManagerInterface $entityManager
-     * @param Request $request
-     * @return RedirectResponse|Response
-     */
-    public function modifierVille(EntityManagerInterface $entityManager, Request $request)
+    /* supprimer un campus */
+    #[Route('/campus/{id}', name: 'app_admin_campus_delete', methods: ['POST'])]
+    public function deleteCampus(Request $request, Campus $campus, CampusRepository $campusRepository): Response
     {
-        //Récupération de la ville à modifier, par son ID
-        $ville = $entityManager->getRepository(Ville::class)->find($request->get('id'));
-        //Formulaire de modification
-        $villeForm = $this->createForm(VilleType::class, $ville);
-        $villeForm->handleRequest($request);
-
-        //Si formulaire valide, on renvoie vers la liste, avec message
-        if ($villeForm->isSubmitted() && $villeForm->isValid()) {
-            $entityManager->flush();
-            $this->addFlash('success', 'La ville a bien été modifiée !');
-
-            //Récupération de la liste des villes pour affichage
-            $villeList = $entityManager->getRepository(Ville::class)->findAll();
-            return $this->redirectToRoute('admin_villes', [
-                'villeForm' => $villeForm->createView()
-                , 'villeList' => $villeList]);
+        if ($this->isCsrfTokenValid('delete'.$campus->getId(), $request->request->get('_token'))) {
+            $campusRepository->remove($campus, true);
         }
-        return $this->render('admin/modifierVille.html.twig', ['villeForm' => $villeForm->createView()]);
+
+        return $this->redirectToRoute('app_admin_campus_index', [], Response::HTTP_SEE_OTHER);
     }
 
 
-    //Supprimer une ville
+    /* ---------------------------------- participant ---------------------------------- */
 
-    /**
-     * @Route(path="/{id}" , name="")
-     * @param EntityManagerInterface $entityManager
-     * @param $id
-     * @return RedirectResponse
-     */
-    public function deleteCity(EntityManagerInterface $entityManager, $id): RedirectResponse
+
+    #[Route('/participant', name: 'app_admin_participant_index', methods: ['GET'])]
+    public function indexParticipant(ParticipantRepository $participantRepository): Response
     {
-        //Récupération de la ville a supprimer grace a l'ID puis suppression dans la BDD
-        $entityManager->remove($ville = $entityManager->getRepository(Ville::class)->find($id));
-        $entityManager->flush();
-
-        $this->addFlash('success', 'le campus a bien été supprimé !');
-
-        return $this->redirectToRoute('admin_villes');
+        return $this->render('admin/participant.html.twig', [
+            'participants' => $participantRepository->findAll(),
+        ]);
     }
 
-
-
-    /**
-     * @Route(path="/userList", name="")
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
-    public function userList(EntityManagerInterface $entityManager): Response
+    #[Route('/participant/new', name: 'app_admin_participant_new', methods: ['GET', 'POST'])]
+    public function newParticipant(Request $request, ParticipantRepository $participantRepository): Response
     {
-        //Récupération de la liste de tous les utilisateurs
-        $allUser = $entityManager->getRepository(Participant::class)->findAll();
-        return $this->render('admin/userList.html.twig', ['allUser' => $allUser]);
-    }
-
-    //Ajouter un utilisateur
-
-    /**
-     * @Route(path="userRegister", name="userRegister" )
-     * @param EntityManagerInterface $entityManager
-     * @param Request $request
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @return Response
-     */
-    public function userRegister(EntityManagerInterface $entityManager, Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
-    {
-        //Instanciation
-        $user = new Participant();
-
-        //Création du formulaire
-        $form = $this->createForm(UserRegisterType::class, $user);
+        $participant = new Participant();
+        $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
-        //Si le formulaire est valide, on définit les paramètres manquants
-        if ($form->isSubmitted() && $form->isValid()) {
-            //Si admin a été choisit, on définit le role pour Admin
-            if ($user->getAdmin() == true) {
-                $user->setRoles((array)'ROLE_ADMIN');
-            } else {
-                //Sinon, automatiquement mit en simple user
-                $user->setRoles(["ROLE_USER"]);
-            }
-            //Encodage du mot de passe de l'utilisateur
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    //Récupération des données remplies dans le champ 'password'
-                    $form->get('password')->getData()
-                )
-            );
-            //Envoie des données dans la BDD
-            $entityManager->persist($user);
-            $entityManager->flush();
 
-            //Message
-            $this->addFlash('success', 'Utilisateur ajouté!');
-            //Retour à la liste des utilisateurs
-            return $this->redirectToRoute('admin_userList');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $participantRepository->add($participant, true);
+
+            return $this->redirectToRoute('app_admin_participant_index', [], Response::HTTP_SEE_OTHER);
         }
-        //Envoie vers la vue d'ajout d'utilisateurs
-        return $this->render('admin/userRegister.html.twig', ['userRegisterForm' => $form->createView()]);
+
+        return $this->renderForm('admin/participantNew.html.twig', [
+            'participant' => $participant,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/participant/{id}', name: 'app_admin_participant_show', methods: ['GET'])]
+    public function showParticipant(Participant $participant): Response
+    {
+        return $this->render('admin/participantShow.html.twig', [
+            'participant' => $participant,
+        ]);
+    }
+
+    #[Route('/participant/{id}/edit', name: 'app_admin_participant_edit', methods: ['GET', 'POST'])]
+    public function editParticipant(Request $request, Participant $participant, ParticipantRepository $participantRepository): Response
+    {
+        $form = $this->createForm(ParticipantType::class, $participant);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $participantRepository->add($participant, true);
+
+            return $this->redirectToRoute('app_admin_participant_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('admin/participantModifier.html.twig', [
+            'participant' => $participant,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/participant/{id}', name: 'app_admin_participant_delete', methods: ['POST'])]
+    public function deleteParticipant(Request $request, Participant $participant, ParticipantRepository $participantRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$participant->getId(), $request->request->get('_token'))) {
+            $participantRepository->remove($participant, true);
+        }
+
+        return $this->redirectToRoute('app_admin_participant_index', [], Response::HTTP_SEE_OTHER);
     }
 
 

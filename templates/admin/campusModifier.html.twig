@@ -1,34 +1,13 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Sortir - ENI - Campus  {% endblock %}
-
+{% block title %}Edit Campus{% endblock %}
 
 {% block body %}
-    {% for status, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ status }} alert-dismissible fade show" role="alert">
-                <strong>
-                    {{ message }}
-                </strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
-    {% endfor %}
- 
-    <div class="container-fluid pt-3">
-        <div class="row">
-            <div class="d-flex justify-content-center">
-                <h1>Modifier Campus</h1>
-            </div>
-            <div class="d-flex justify-content-center">
-                <br>
-                {{ form_start(campusForm) }}
-                <br>
-                {{ form_row(campusForm.name) }}
-                <br>
-                <button class="btn btn-success" type="submit">Modifier</button>
-                {{ form_end(campusForm) }}
-            </div>
-        </div>
-    </div>
+    <h1>Edit Campus</h1>
+
+    {{ include('campus/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_campus_index') }}">back to list</a>
+
+    {{ include('campus/_delete_form.html.twig') }}
 {% endblock %}
