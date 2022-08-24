@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
-use App\Entity\Sortie;
+use App\Entity\Event;
+use App\Filters\Filters;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -38,6 +41,63 @@ class SortieRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+   /**
+     * @param Filters $filters
+     * @param ParticipantInterface $Particpant
+     * @return Sortie[]
+     */
+    public function findSearch(Filters $filters, ParticipantInterface $Participant): array
+    {
+
+        //Récupère tous les événements
+        $query = $this->createQueryBuilder('sortie')
+            ->select('sortie', 'campus')
+            ->join('sortie.campus', 'campus')
+
+        ;
+        //Si des filtres sont séléctionnés, afine la recherche
+        //Test le champ de texte
+        if (!empty($filters->text)) {
+            $query = $query
+                ->andWhere('So.name LIKE :text')
+                ->setParameter('text', "%{$filters->text}%");
+        }
+        //Récupère les event lié au campus sélectionné
+        if (!empty($filters->campus)) {
+            $query = $query
+                ->andWhere('campus IN (:campus)')
+                ->setParameter('campus', $filters->campus);
+        }
+        //Récupère les event organisé par l'user connecté
+        if(!empty($filters->organizer)){
+            $query = $query
+                ->andWhere('sortie.organizer = :organizer')
+                ->setParameter('organizer', $Participant);
+        }
+
+        //Récupère les event entre la date de début sélectionné
+        if (!empty($filters->dateHeureDebut)) {
+            $query = $query
+                ->andWhere('sortie.dateHeureDebut > (:dateHeureDebut)')
+                ->setParameter('dateHeureDebut', $filters->dateHeureDebut);
+        }
+        //Et la date de fin sélectionné
+        if (!empty($filters->dateLimiteInscription)) {
+            $query = $query
+                ->andWhere('sortie.dateLimiteInscription < (:dateLimiteInscription)')
+                ->setParameter('dateLimiteInscription', $filters->dateLimiteInscription);
+        }
+        //Récupère les event archivé
+        if(!empty($filters->passedEvents)){
+            $query = $query
+                ->andWhere('event.state = 4');
+        }
+        //Renvoie des résultats
+        return $query->getQuery()->getResult();
+    }
+
+
 
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects

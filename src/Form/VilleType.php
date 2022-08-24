@@ -23,4 +23,17 @@ class VilleType extends AbstractType
             'data_class' => Ville::class,
         ]);
     }
+
+    /**
+     * @param NameFilter $villeFilter
+     * @return Ville[]
+     */
+    public function findName(NameFilter $villeFilter): array
+    {
+        $query = $this->createQueryBuilder('ville')
+            ->andWhere('ville.name LIKE :text')
+            ->setParameter('text',"%{$villeFilter->text}%" );
+
+        return $query->getQuery()->getResult();
+    }
 }

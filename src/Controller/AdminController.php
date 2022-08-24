@@ -28,7 +28,7 @@ class AdminController extends AbstractController
 {
     //créer un campus
     /**
-     * @Route(path="/", name="")
+     * @Route(path="/campus", name="campus")
      * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @param CampusRepository $campusRepository
@@ -70,7 +70,7 @@ class AdminController extends AbstractController
     //Modifier le nom d'un campus
 
     /**
-     * @Route(path="/{id}" , name="")
+     * @Route(path="campusmodifier/{id}" , name="campusmodifier")
      * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @return Response
@@ -96,7 +96,7 @@ class AdminController extends AbstractController
                 'campusList' => $campusList
             ]);
         }
-        return $this->render("campus/edit.html.twig", [
+        return $this->render("admin/campusModifier.html.twig", [
                 'campusForm' => $campusForm->createView()]
         );
 
@@ -106,7 +106,7 @@ class AdminController extends AbstractController
     // Supprime un campus
 
     /**
-     * @Route(path="/{id}" , name="")
+     * @Route(path="campusdelete/{id}" , name="campusdelete")
      * @param EntityManagerInterface $entityManager
      * @param int $id
      * @return RedirectResponse
