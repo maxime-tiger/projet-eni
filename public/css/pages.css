@@ -42,9 +42,16 @@ body{
     justify-content: space-between;
 }
 .elementfooter{
+   
     margin-left: 4vw;
     margin-right: 4vw;
     display: flex;
     justify-content: space-between;
+    
+}
+.elementfooter a{
     color: #f8f8f8;
+}
+.elementfooter a:hover{
+    color: #FFC0CB;
 }
