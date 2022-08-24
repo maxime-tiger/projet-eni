@@ -2,12 +2,10 @@
 
 namespace App\Repository;
 
-use App\Entity\Event;
+use App\Entity\Sortie;
 use App\Filters\Filters;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -42,12 +40,15 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-   /**
+
+
+
+    /**
      * @param Filters $filters
-     * @param ParticipantInterface $Particpant
+     * @param ParticipantRepository $Particpant
      * @return Sortie[]
      */
-    public function findSearch(Filters $filters, ParticipantInterface $Participant): array
+    public function findSearch(Filters $filters, ParticipantRepository $participant): array
     {
 
         //Récupère tous les événements
@@ -73,7 +74,7 @@ class SortieRepository extends ServiceEntityRepository
         if(!empty($filters->organizer)){
             $query = $query
                 ->andWhere('sortie.organizer = :organizer')
-                ->setParameter('organizer', $Participant);
+                ->setParameter('organizer', $participant);
         }
 
         //Récupère les event entre la date de début sélectionné
