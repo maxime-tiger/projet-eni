@@ -49,6 +49,10 @@ class Sortie
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     private ?Etat $sortieEtat = null;
 
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?participant $organisateur = null;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -206,5 +210,16 @@ class Sortie
         return $this;
     }
 
+    public function getOrganisateur(): ?participant
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?participant $organisateur): self
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
     
 }
