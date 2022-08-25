@@ -26,14 +26,12 @@
 
             <div class="uk-navbar-center-left">
                 <ul class="uk-navbar-nav">
-                    <li class="uk-active"><a href="Accueil">Accueil</a></li>
+                    <li class="uk-active"><a href="{{ path('app_sortie_index') }}">Accueil</a></li>
                     <li class="uk-active">
-                    <a href="#">Sortie</a>
+                    <a href="{{ path('app_sortie_index') }}">Sortie</a>
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li><a href="#">Créer</a></li>
-                            <li><a href="#">Modifier</a></li>
-                            <li><a href="#">Supprimer</a></li>
+                            <li><a href="{{ path('app_sortie_new') }}">Créer</a></li>
                         </ul>
                     </div>
                 </li>
@@ -64,7 +62,7 @@
                 <li class="uk-active"><a href="#">Mon compte</a>
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li><a href="#">Voir mon profil</a></li>
+                            <li><a href="{{ path('app_participant_show', {'id':app.user.id}) }}">Voir mon profil</a></li>
                             <li><a href="#">Editer</a></li>
                         </ul>
                         <li class="uk-active"><a href="#">Se déconnecter</a></li>

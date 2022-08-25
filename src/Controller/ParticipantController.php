@@ -41,8 +41,9 @@ class ParticipantController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_participant_show', methods: ['GET'])]
-    public function show(Participant $participant): Response
+    public function show(Participant $participant, $id): Response
     {
+
         return $this->render('participant/show.html.twig', [
             'participant' => $participant,
         ]);
