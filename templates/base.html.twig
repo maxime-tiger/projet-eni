@@ -26,20 +26,20 @@
 
             <div class="uk-navbar-center-left">
                 <ul class="uk-navbar-nav">
-                    <li class="uk-active"><a href="Accueil">Accueil</a></li>
+                    <li class="uk-active"><a href="{{path('app_sortie_index')}}">Accueil</a></li>
                     <li class="uk-active">
-                    <a href="#">Sortie</a>
+                    <a href="{{path('app_sortie_index')}}">Sortie</a>
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li><a href="#">Créer</a></li>
-                            <li><a href="#">Modifier</a></li>
-                            <li><a href="#">Supprimer</a></li>
-                        </ul>
+                            <li><a href="{{path('app_sortie_new')}}">Créer</a></li>
+                           {#} <li><a href="{{path('app_sortie_edit',{'id':sortie.id})}}">Modifier</a></li>
+                            <li><a href="{{path('app_sortie_delete',{'id':sortie.id})}}">Supprimer</a></li>
+                       {#} </ul>
                     </div>
                 </li>
             </ul>
         </div>
-        <a class="uk-navbar-item uk-logo" href="#">
+        <a class="uk-navbar-item uk-logo" href="{{path('app_sortie_index')}}">
         <svg width="160" height="70" viewBox="0 0 320 139.6488646735824" class="css-1j8o68f">
             <defs id="SvgjsDefs1178"></defs>
             <g id="SvgjsG1179" featurekey="symbolFeature-0" transform="matrix(0.6365664575051385,0,0,0.6365664575051385,0.05907072477135777,0)" fill="#415f9d">
@@ -61,13 +61,13 @@
         </a>
         <div class="uk-navbar-center-right">
             <ul class="uk-navbar-nav">
-                <li class="uk-active"><a href="#">Mon compte</a>
+                <li class="uk-active"><a href="{{path('app_participant_index')}}">Mon compte</a>
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li><a href="#">Voir mon profil</a></li>
-                            <li><a href="#">Editer</a></li>
-                        </ul>
-                        <li class="uk-active"><a href="#">Se déconnecter</a></li>
+                            {#}<li><a href="{{path('app_participant_show')}}">Voir mon profil</a></li>
+                            <li><a href="{{path('app_participant_edit')}}">Editer</a></li>
+                        {#}</ul>
+                        <li class="uk-active"><a href="{{path('app_logout')}}">Se déconnecter</a></li>
                     </div>
                 </li>
             </ul>
@@ -82,7 +82,7 @@
     
      <div class="divPrincipale">
         <div class="contenu">
-            {% block main %}s
+            {% block main %}
             <h1> TEST </h1>
             {% endblock %}
         </div>
@@ -94,8 +94,8 @@
         {% block footer %}
             <div class="elemFooter">
                 <div class="elementfooter"><a> Contactez nous </a></div>
-                <div class="elementfooter"><a> Je suis Batman </a></div>
-                <div class="elementfooter"><a> L'ENI Ecole informatique </a></div>
+                <div class="elementfooter"><a href="http://www.noelshack.com/2022-34-3-1661352603-batman-projet.png"> Je suis Batman </a></div>
+                <div class="elementfooter"><a href="https://www.eni-ecole.fr/"> L'ENI Ecole informatique </a></div>
                 <div class="elementfooter"><a> Mentions légales </a></div>
             </div>
         {% endblock %}
