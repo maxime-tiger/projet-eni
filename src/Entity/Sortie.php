@@ -41,10 +41,10 @@ class Sortie
     private ?Campus $campus = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
-    private ?Lieu $sortie = null;
+    private ?Lieu $lieu = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
-    private ?Etat $sortieEtat = null;
+    private ?Etat $etat = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
@@ -171,26 +171,26 @@ class Sortie
         return $this;
     }
 
-    public function getSortie(): ?Lieu
+    public function getLieu(): ?Lieu
     {
-        return $this->sortie;
+        return $this->lieu;
     }
 
-    public function setSortie(?Lieu $sortie): self
+    public function setLieu(?Lieu $lieu): self
     {
-        $this->sortie = $sortie;
+        $this->lieu = $lieu;
 
         return $this;
     }
 
-    public function getSortieEtat(): ?Etat
+    public function getEtat(): ?Etat
     {
-        return $this->sortieEtat;
+        return $this->etat;
     }
 
-    public function setSortieEtat(?Etat $sortieEtat): self
+    public function setEtat(?Etat $etat): self
     {
-        $this->sortieEtat = $sortieEtat;
+        $this->Etat = $etat;
 
         return $this;
     }
