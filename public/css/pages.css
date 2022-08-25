@@ -55,3 +55,13 @@ body{
 .elementfooter a:hover{
     color: #FFC0CB;
 }
+/*.cardSorties{
+    height: 100vh;
+    width: 100vw;
+}*/
+
+.sortieTitle{
+    display:flex;
+    justify-content: center;
+
+}
