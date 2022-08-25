@@ -3,7 +3,8 @@
 {% block title %}Sortie index{% endblock %}
 
 {% block main %}
-    <div class="sortieTitle">
+
+<div class="sortieTitle">
         <h1>Les sorties </h1>
     </div>
 
@@ -43,6 +44,7 @@
             </tr>
         </thead>
         <tbody>
+        {% endfor %}
         {% for sortie in sorties %}
             <tr>
                 <td>{{ sortie.id }}</td>
