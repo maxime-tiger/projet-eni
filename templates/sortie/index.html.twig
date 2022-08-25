@@ -3,10 +3,32 @@
 {% block title %}Sortie index{% endblock %}
 
 {% block main %}
+    <div class="sortieTitle">
+        <h1>Les sorties </h1>
+    </div>
 
-    <h1>Sortie index</h1>
-
-    <table class="table">
+        {% for sortie in sorties %}
+            <div class="cardSorties" uk-grid>
+                <div>
+                    <div class="uk-card uk-card-default">
+                        <div class="uk-card-media-top">
+                            <img src="{{asset('images/mountains.svg')}}" width="" height="100%" alt="">
+                        </div>
+                        <div class="uk-card-body">
+                            <h3 class="uk-card-title">Sortie à la montagne</h3>
+                            <p>La montagne, ca vous gagne! </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+        <td>
+            <a href="{{ path('app_sortie_show', {'id': sortie.id}) }}">show</a>
+            <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a>
+        </td>
+        <tr>
+            <td colspan="9">no records found</td>
+        </tr>
         <thead>
             <tr>
                 <th>Id</th>
@@ -40,8 +62,7 @@
                 <td colspan="9">no records found</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
+        
 
     <a href="{{ path('app_sortie_new') }}">Create new</a>
 {% endblock %}
