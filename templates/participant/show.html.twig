@@ -1,28 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Participant{% endblock %}
+{% block title %}Mon compte{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Participant</h1>
 
     <table class="table">
         <tbody>
-            <tr>
+            {# <tr>
                 <th>Id</th>
                 <td>{{ participant.id }}</td>
-            </tr>
+            </tr> #}
             <tr>
                 <th>Email</th>
                 <td>{{ participant.email }}</td>
             </tr>
-            <tr>
+            {# <tr>
                 <th>Roles</th>
                 <td>{{ participant.roles ? participant.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
+            </tr> #}
+            {# <tr>
                 <th>Password</th>
                 <td>{{ participant.password }}</td>
-            </tr>
+            </tr> #}
             <tr>
                 <th>Nom</th>
                 <td>{{ participant.nom }}</td>

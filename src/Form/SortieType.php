@@ -24,45 +24,46 @@ class SortieType extends AbstractType
             ->add('nom', TextType::class, [
                 'required' => true, 'label' => 'Nom de la sortie : '
             ])
-            ->add('limitDate', DateTimeType::class, [
+            ->add('date_limite_inscription', DateTimeType::class, [
                 'required' => true,
                 'widget' => 'single_text',
                 'label' => 'Date limite d\'inscription : '
             ])
-            ->add('eventDate', DateTimeType::class, [
+            ->add('date_heure_debut', DateTimeType::class, [
                 'required' => true,
                 'widget' => 'single_text',
                 'label' => 'Date et heure de la sortie : ',
                 'invalid_message'=>'Le nombre de place doit être supérieur à 0',
             ])
-            ->add('nbrPlace', IntegerType::class, [
+            ->add('nb_inscription_max', IntegerType::class, [
                 'required' => true,
                 'label' => 'Nombre de places : ',
                 'attr'=>['step'=>1, 'min'=>1,"pattern"=>"\d+" ]
             ])
-            ->add('duration', TimeType::class, [
+            ->add('duree', TimeType::class, [
                 'required' => true,
                 'widget' => 'single_text',
                 'label' => 'Durée: '
             ])
-            ->add('description', TextareaType::class, [
+            ->add('infos_sortie', TextareaType::class, [
                 'required' => true,
                 'label' => 'Description et infos : '
             ])
             ->add('campus', EntityType::class, [
                 'required' => true,
                 'class' => Campus::class,
-                'choice_label' => 'name'
+                'choice_label' => 'nom'
             ])
-            ->add('city', EntityType::class, [
+            ->add('ville', EntityType::class, [
                 'required' => true,
                 'class' => Ville::class,
                 'choice_label' => 'name'
             ])
-            /* ->add('place', PlaceType::class, [
+            ->add('lieu', EntityType::class, [
                 'required' => true,
+                'class' => Lieu::class,
                 'label' => ' '
-            ]) */
+            ])
             ->add('register', SubmitType::class, [
                 'attr' => ['value' => 1],
                 'label' => 'Enregistrer'

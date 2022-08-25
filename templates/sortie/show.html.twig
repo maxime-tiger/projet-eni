@@ -2,7 +2,7 @@
 
 {% block title %}Sortie{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Sortie</h1>
 
     <table class="table">
@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th>Duree</th>
-                <td>{{ sortie.duree }}</td>
+                <td>{{ sortie.duree ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>DateLimiteInscription</th>
@@ -34,10 +34,6 @@
             <tr>
                 <th>InfosSortie</th>
                 <td>{{ sortie.infosSortie }}</td>
-            </tr>
-            <tr>
-                <th>Etat</th>
-                <td>{{ sortie.Etat }}</td>
             </tr>
         </tbody>
     </table>

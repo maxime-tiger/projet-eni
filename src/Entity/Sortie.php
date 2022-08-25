@@ -22,8 +22,8 @@ class Sortie
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
-    #[ORM\Column]
-    private ?int $duree = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $duree = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateLimiteInscription = null;
@@ -33,9 +33,6 @@ class Sortie
 
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $infosSortie = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $Etat = null;
 
     #[ORM\ManyToMany(targetEntity: Participant::class, mappedBy: 'sortie')]
     private Collection $participants;
@@ -87,12 +84,12 @@ class Sortie
         return $this;
     }
 
-    public function getDuree(): ?int
+    public function getDuree(): ?\DateTimeInterface
     {
         return $this->duree;
     }
 
-    public function setDuree(int $duree): self
+    public function setDuree(\DateTimeInterface $duree): self
     {
         $this->duree = $duree;
 
@@ -131,18 +128,6 @@ class Sortie
     public function setInfosSortie(?string $infosSortie): self
     {
         $this->infosSortie = $infosSortie;
-
-        return $this;
-    }
-
-    public function getEtat(): ?string
-    {
-        return $this->Etat;
-    }
-
-    public function setEtat(string $Etat): self
-    {
-        $this->Etat = $Etat;
 
         return $this;
     }

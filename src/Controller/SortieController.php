@@ -33,6 +33,14 @@ class SortieController extends AbstractController
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
 
+        /* $val = $request->get('sortie[register]');
+        dd($val); */
+
+        $idutil = $this->getUser();
+        /* dd($idutil); */
+        
+        $sortie->setOrganisateur($idutil);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $sortieRepository->add($sortie, true);
 
