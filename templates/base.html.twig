@@ -32,9 +32,9 @@
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
                             <li><a href="{{path('app_sortie_new')}}">Créer</a></li>
-                           {#} <li><a href="{{path('app_sortie_edit',{'id':sortie.id})}}">Modifier</a></li>
-                            <li><a href="{{path('app_sortie_delete',{'id':sortie.id})}}">Supprimer</a></li>
-                       {#} </ul>
+                            {# <li><a href="{{path('app_sortie_edit',{'id':sortie.id})}}">Modifier</a></li>
+                            <li><a href="{{path('app_sortie_delete',{'id':sortie.id})}}">Supprimer</a></li> #}
+                        </ul>
                     </div>
                 </li>
             </ul>
@@ -64,15 +64,15 @@
                 <li class="uk-active"><a href="{{path('app_participant_index')}}">Mon compte</a>
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                            {#}<li><a href="{{path('app_participant_show')}}">Voir mon profil</a></li>
-                            <li><a href="{{path('app_participant_edit')}}">Editer</a></li>
-                        {#}</ul>
+                            <li><a href="{{path('app_participant_show', {'id':app.user.id} )}}">Voir mon profil</a></li>
+                            <li><a href="{{path('app_participant_edit', {'id':app.user.id} )}}">Editer</a></li>
+                        </ul>
                         <li class="uk-active"><a href="{{path('app_logout')}}">Se déconnecter</a></li>
                     </div>
                 </li>
             </ul>
         </div>
-        
+        {# { path('app_participant_show', {'id':app.user.id} #}
 
     </div>
 </nav>

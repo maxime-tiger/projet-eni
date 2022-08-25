@@ -21,7 +21,7 @@ class SortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('nom', TextType::class, [
                 'required' => true, 'label' => 'Nom de la sortie : '
             ])
             ->add('limitDate', DateTimeType::class, [
@@ -59,10 +59,10 @@ class SortieType extends AbstractType
                 'class' => Ville::class,
                 'choice_label' => 'name'
             ])
-            ->add('place', PlaceType::class, [
+            /* ->add('place', PlaceType::class, [
                 'required' => true,
                 'label' => ' '
-            ])
+            ]) */
             ->add('register', SubmitType::class, [
                 'attr' => ['value' => 1],
                 'label' => 'Enregistrer'
