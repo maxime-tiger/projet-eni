@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Campus;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -54,26 +55,31 @@ class SortieType extends AbstractType
                 'class' => Campus::class,
                 'choice_label' => 'nom'
             ])
-            ->add('ville', EntityType::class, [
+            ->add('lieu', EntityType::class, [
+                'required' => true,
+                'class' => Lieu::class,
+                'choice_label' => 'nom'
+            ])
+            /* ->add('ville', EntityType::class, [
                 'mapped' => false,
                 'required' => true,
                 'class' => Ville::class,
                 'choice_label' => 'name'
-            ])
-            ->add('lieu', EntityType::class, [
+            ]) */
+            /* ->add('lieu', EntityType::class, [
                 'mapped' => false,
                 'required' => true,
                 'class' => Lieu::class,
                 'label' => ' '
-            ])
-            ->add('register', SubmitType::class, [
+            ]) */
+            /* ->add('register', SubmitType::class, [
                 'attr' => ['value' => 1],
                 'label' => 'Enregistrer'
-            ])
-            ->add('publish', SubmitType::class,
+            ]) */
+            /* ->add('publish', SubmitType::class,
                 ['attr' => ['value' => 2],
                     'label' => 'Publier la sortie'
-                ])
+                ]) */
 //            ->add('cancel', ResetType::class, [
 //                'label' => 'Annuler',
 //                'attr'=>['type'=>'reset']

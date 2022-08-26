@@ -31,7 +31,7 @@ class Lieu
     private Collection $sorties;
 
     #[ORM\ManyToOne(inversedBy: 'lieus')]
-    private ?Ville $lieu = null;
+    private ?Ville $ville = null;
 
     public function __construct()
     {
@@ -121,14 +121,14 @@ class Lieu
         return $this;
     }
 
-    public function getLieu(): ?Ville
+    public function getVille(): ?Ville
     {
-        return $this->lieu;
+        return $this->ville;
     }
 
-    public function setLieu(?Ville $lieu): self
+    public function setVille(?Ville $ville): self
     {
-        $this->lieu = $lieu;
+        $this->ville = $ville;
 
         return $this;
     }
