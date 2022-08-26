@@ -3,68 +3,29 @@
 {% block title %}Sortie index{% endblock %}
 
 {% block main %}
-
-<div class="sortieTitle">
-        <h1>Les sorties </h1>
-    </div>
-
-        {% for sortie in sorties %}
-            <div class="cardSorties" uk-grid>
-                <div>
-                    <div class="uk-card uk-card-default">
-                        <div class="uk-card-media-top">
-                            <img src="{{asset('images/mountains.svg')}}" width="" height="100%" alt="">
-                        </div>
-                        <div class="uk-card-body">
-                            <h3 class="uk-card-title">Sortie à la montagne</h3>
-                            <p>La montagne, ca vous gagne! </p>
-                        </div>
+    
+         <div class="sortieTitle">
+            <h1>Les sorties </h1>
+        </div>
+    
+    <div>
+    {% for sortie in sorties %}
+        <div class="cardSorties" uk-grid>
+            <div class="uk-card uk-card-default">
+                <div class="uk-card-media-top">
+                    <img src="{{asset('images/mountains.svg')}}" width="" height="100%" alt="">
+                </div>
+                <div class="uk-card-body">
+                    <h3 class="uk-card-title">{{sortie.nom}}</h3>
+                <p>{{sortie.infosSortie}} </p>
+                    <div class="uk-position-bottom-left uk-overlay uk-overlay-default"><p> {{sortie.dateHeureDebut | date('d-m-Y')}}</div>
+                        <div class="uk-position-bottom-center uk-overlay uk-overlay-default"><p>{{ sortie.nbInscriptionMax }} Participants </p></div>
+                            <div class="uk-position-bottom-right uk-overlay uk-overlay-default">{{sortie.duree | date('H:i')}}</div>
                     </div>
                 </div>
             </div>
-        {% else %}
-        <td>
-            {# <a href="{{ path('app_sortie_show', {'id': sortie.id}) }}">show</a>
-            <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a> #}
-        </td>
-        <tr>
-            <td colspan="9">no records found</td>
-        </tr>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>DateHeureDebut</th>
-                <th>Duree</th>
-                <th>DateLimiteInscription</th>
-                <th>NbInscriptionMax</th>
-                <th>InfosSortie</th>
-                <th>Etat</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% endfor %}
-        {% for sortie in sorties %}
-            <tr>
-                <td>{{ sortie.id }}</td>
-                <td>{{ sortie.nom }}</td>
-                <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ sortie.duree ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ sortie.nbInscriptionMax }}</td>
-                <td>{{ sortie.infosSortie }}</td>
-                <td>
-                    <a href="{{ path('app_sortie_show', {'id': sortie.id}) }}">show</a>
-                    <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        
-
-    <a href="{{ path('app_sortie_new') }}">Create new</a>
+         </div>
+    </div>
+    {% endfor %}   
+    
 {% endblock %}
