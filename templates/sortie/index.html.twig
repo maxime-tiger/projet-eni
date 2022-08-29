@@ -1,31 +1,27 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/sortieIndex.css')}}">
+{% endblock %}
+
 {% block title %}Sortie index{% endblock %}
 
 {% block main %}
     
-         <div class="sortieTitle">
-            <h1>Les sorties </h1>
-        </div>
-    
-    <div>
-    {% for sortie in sorties %}
-        <div class="cardSorties" uk-grid>
-            <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                    <img src="{{asset('images/mountains.svg')}}" width="" height="100%" alt="">
-                </div>
-                <div class="uk-card-body">
-                    <h3 class="uk-card-title">{{sortie.nom}}</h3>
-                <p>{{sortie.infosSortie}} </p>
-                    <div class="uk-position-bottom-left uk-overlay uk-overlay-default"><p> {{sortie.dateHeureDebut | date('d-m-Y')}}</div>
-                        <div class="uk-position-bottom-center uk-overlay uk-overlay-default"><p>{{ sortie.nbInscriptionMax }} Participants </p></div>
-                            <div class="uk-position-bottom-right uk-overlay uk-overlay-default">{{sortie.duree | date('H:i')}}</div>
-                    </div>
-                </div>
-            </div>
-         </div>
+    <div class="title">
+        <h1> Les sorties </h1>
     </div>
-    {% endfor %}   
+    
+    <div class="card-content">
+    {% for sortie in sorties %}
+            
+        <div class="card">
+            <img src="light.jpg" alt="light" class="icon">
+            <p class="title">Favourites</p>
+            <p class="text">Check all your favourites in one place.</p>
+        </div>
+
+    {% endfor %}
+    </div>
     
 {% endblock %}
