@@ -17,9 +17,11 @@
             
         <a href="{{path('app_sortie_show', {'id': sortie.id} )}}" class="card-link">
             <div class="card">
-                <img src="light.jpg" alt="light" class="icon">
-                <p class="title">Favourites</p>
+                {# <img src="light.jpg" alt="light" class="icon"> #}
+                <p class="title">{{sortie.nom}}</p>
                 <p class="text">Check all your favourites in one place.</p>
+                <p class="date">{{sortie.DateHeureDebut | date("d m Y")}}</p>
+                <p class="desc">{{sortie.InfosSortie}}</p>
             </div>
         </a>
 

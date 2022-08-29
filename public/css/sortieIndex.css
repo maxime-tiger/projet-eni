@@ -5,7 +5,7 @@
 .card-content{
 backdrop-filter: blur(6px);
   overflow-y: scroll;
-  width: 70vw;
+  width: 65vw;
   height: 555px;
   display: flex;
   justify-content: center;
@@ -39,7 +39,7 @@ backdrop-filter: blur(6px);
 
 .card {
 width: 100%;
-max-width: 300px;
+max-width: 250px;
 min-width: 200px;
 height: 250px;
 background-color: #292929;
@@ -78,11 +78,35 @@ transition: all 0.3s ease;
 width: 100%;
 margin: 0;
 text-align: center;
+overflow: hidden;
+text-overflow:ellipsis;
 margin-top: 30px;
 color: white;
 font-weight: 600;
 text-transform: uppercase;
 letter-spacing: 4px;
+}
+
+.card .date {
+width: 100%;
+font-size: small;
+margin: 0;
+text-align: center;
+margin-top: 30px;
+color: white;
+text-transform: uppercase;
+}
+
+.card .desc {
+width: 100%;
+font-size: small;
+margin: 0;
+text-align: center;
+overflow: hidden;
+text-overflow:ellipsis;
+margin-top: 30px;
+color: white;
+text-transform: uppercase;
 }
 
 .card .text {
