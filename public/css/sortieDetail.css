@@ -1,0 +1,22 @@
+.detail-sortie {
+    text-align: center;
+    backdrop-filter: blur(6px);
+    width: 65vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    white-space: normal;
+}
+
+.detail-sortie p{
+    margin: 10px;
+    color: black;
+    white-space: normal;
+}
+
+.desc{
+    font-size: 27px;
+    width: 100%;
+}
