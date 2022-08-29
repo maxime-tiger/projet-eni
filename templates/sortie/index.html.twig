@@ -15,11 +15,13 @@
     <div class="card-content">
     {% for sortie in sorties %}
             
-        <div class="card">
-            <img src="light.jpg" alt="light" class="icon">
-            <p class="title">Favourites</p>
-            <p class="text">Check all your favourites in one place.</p>
-        </div>
+        <a href="{{path('app_sortie_show', {'id': sortie.id} )}}" class="card-link">
+            <div class="card">
+                <img src="light.jpg" alt="light" class="icon">
+                <p class="title">Favourites</p>
+                <p class="text">Check all your favourites in one place.</p>
+            </div>
+        </a>
 
     {% endfor %}
     </div>

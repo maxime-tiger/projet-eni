@@ -32,6 +32,11 @@ backdrop-filter: blur(6px);
   background: rgba(105, 105, 105, 0.5); 
 }
 /*-------------------- End ScrollBar --------------------*/
+
+.card-link:hover{
+  text-decoration: none;
+}
+
 .card {
 width: 100%;
 max-width: 300px;
