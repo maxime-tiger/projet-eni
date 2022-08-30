@@ -3,9 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
-use App\Filters\Filters;
+use App\Filter\Filters;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -22,6 +24,7 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+    /*
     public function add(Sortie $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -39,29 +42,32 @@ class SortieRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
+    */
+
+    
 
 
-
-
-    /**
+/**
      * @param Filters $filters
-     * @param ParticipantRepository $Particpant
+     * @param ParticipantInterface $Participant
      * @return Sortie[]
      */
-    public function findSearch(Filters $filters, ParticipantRepository $participant): array
+    public function findSearch(Filters $filters ,UserInterface $participant): array
     {
-
+ 
+       
         //Récupère tous les événements
-        $query = $this->createQueryBuilder('sortie')
+        $query = $this->createQueryBuilder ('sortie')
             ->select('sortie', 'campus')
-            ->join('sortie.campus', 'campus')
+            ->join('sortie.campus', 'campus') ;
 
-        ;
+       
         //Si des filtres sont séléctionnés, afine la recherche
         //Test le champ de texte
         if (!empty($filters->text)) {
             $query = $query
-                ->andWhere('So.name LIKE :text')
+                ->andWhere('sortie.nom LIKE :text')
                 ->setParameter('text', "%{$filters->text}%");
         }
         //Récupère les event lié au campus sélectionné
@@ -71,10 +77,10 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('campus', $filters->campus);
         }
         //Récupère les event organisé par l'user connecté
-        if(!empty($filters->organizer)){
+        if(!empty($filters->organisateur)){
             $query = $query
-                ->andWhere('sortie.organizer = :organizer')
-                ->setParameter('organizer', $participant);
+                ->andWhere('sortie.organisateur = :organisateur')
+                ->setParameter('organisateur', $participant);
         }
 
         //Récupère les event entre la date de début sélectionné
@@ -96,8 +102,8 @@ class SortieRepository extends ServiceEntityRepository
         }
         //Renvoie des résultats
         return $query->getQuery()->getResult();
+        
     }
-
 
 
 //    /**

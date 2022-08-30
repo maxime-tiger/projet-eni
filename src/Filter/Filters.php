@@ -1,14 +1,16 @@
 <?php
 
+namespace App\Filter;
 
 use App\Entity\Campus;
 use App\Entity\Sortie;
 use DateTime;
-use App\Entity\Participant
-;
+use App\Entity\Participant;
+
+
 class Filters
 {
-    /**
+     /**
      * @var string
      */
     public $text = '';
@@ -19,25 +21,16 @@ class Filters
     /**
      * @var Participant
      */
-    public $organizer;
-    /**
-     * @var Participant
-     */
-    public $subscribed;
-    /**
-     * @var Participant
-     */
-    public $notSubscribed;
-    /**
-     * @var Event
+    public $organisateur;
+
+   
+    /** 
+     * @var Sortie
      */
     public $passedEvents;
     /**
      * @var DateTime
      */
-    public $dateStart;
-    /**
-     * @var DateTime
-     */
-    public $dateEnd;
+    public $dateHeureDebut;
+ 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Filter\NameFilter;
 use App\Entity\Campus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

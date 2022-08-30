@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Ville;
 use App\Form\SortieType;
 use App\Entity\Sortie;
 use App\Entity\Participant;
 use App\Repository\SortieRepository;
+use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,18 +15,32 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 #[Route('/sortie')]
 class SortieController extends AbstractController
 {
-    #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
-    public function index(SortieRepository $sortieRepository): Response
-    {
-        return $this->render('sortie/index.html.twig', [
-            'sorties' => $sortieRepository->findAll(),
-        ]);
-    }
 
+
+    #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
+    public function index(Request $request, SortieRepository $filterRepository ): Response
+    {
+        
+
+    //Instanciation de Filters et gestion du formulaire
+    $filters = new Filters();
+    $filtersForm = $this->createForm(AcdType::class, $filters);
+    $filtersForm->handleRequest($request);
+
+//Recherche des données via le repository Sortie
+//avec comme paramètres les filtres renseignés et l'utilisateur connecté
+$filtersResults = $filterRepository->findSearch($filters, $this->getUser());
+
+return $this->render('sortie/index.html.twig',
+    [
+        'filtersForm' => $filtersForm->createView(),
+        'filtersResults' => $filtersResults,
+        'sorties' => $filterRepository->findAll()
+    ]);
+}
     #[Route('/new', name: 'app_sortie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, SortieRepository $sortieRepository): Response
     {
@@ -53,13 +69,30 @@ class SortieController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_sortie_show', methods: ['GET'])]
-    public function show(Sortie $sortie, Request $request, SortieRepository $sortieRepository): Response
+    public function show(Sortie $sortie): Response
     {
+
 
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
         ]);
-        
+
+        //Test si l'utilisateur est déjà inscrit ou non
+        /* $subOrNot = false;
+        foreach ($participants as $participant) {
+            //Si oui, true, pour l'affichage du bouton "Se désinscrire"
+            if ($this->getUser() == $participant) {
+                $subOrNot = true;
+            }
+        } */
+
+
+        /* //Renvoie vers une page de détail sans modification possible
+        return $this->render('sortie/show.html.twig', [
+            'sortie' => $sortie,
+            'participants' => $participants,
+            'subOrNot' => $subOrNot,
+        ]); */
     }
 
     #[Route('/{id}/edit', name: 'app_sortie_edit', methods: ['GET', 'POST'])]
