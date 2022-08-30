@@ -6,6 +6,7 @@ use App\Entity\Ville;
 use App\Form\SortieType;
 use App\Entity\Sortie;
 use App\Entity\Lieu;
+use App\Repository\CampusRepository;
 use App\Repository\SortieRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,10 +20,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
-    public function index(SortieRepository $sortieRepository): Response
+    public function index(SortieRepository $sortieRepository, CampusRepository $campusRepository): Response
     {
         return $this->render('sortie/index.html.twig', [
             'sorties' => $sortieRepository->findAll(),
+            'campus' => $campusRepository->findAll(),
         ]);
     }
 
