@@ -34,7 +34,7 @@ return $this->render('sortie/index.html.twig',
     [
         'filtersForm' => $filtersForm->createView(),
         'filtersResults' => $filtersResults,
-        'sorties' => $filterRepository->findAll(),
+        'sorties' => $filterRepository->findAll()
     ]);
 }
    

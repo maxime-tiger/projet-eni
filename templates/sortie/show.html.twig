@@ -1,46 +1,40 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/sortieDetail.css')}}">
+{% endblock %}
+
 {% block title %}Sortie{% endblock %}
 
 {% block main %}
-    <h1>Sortie</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ sortie.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ sortie.nom }}</td>
-            </tr>
-            <tr>
-                <th>DateHeureDebut</th>
-                <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Duree</th>
-                <td>{{ sortie.duree ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DateLimiteInscription</th>
-                <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>NbInscriptionMax</th>
-                <td>{{ sortie.nbInscriptionMax }}</td>
-            </tr>
-            <tr>
-                <th>InfosSortie</th>
-                <td>{{ sortie.infosSortie }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="detail-sortie">
+        <h1>{{ sortie.nom }}</h1>
+        <p class="desc">{{ sortie.infosSortie }}</p>
+        <p>le : {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d m Y')}} à 
+        {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('H')}}h
+        {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('i')}}</p>
+        <p>Durée de la sortie : {{ sortie.duree ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}</p>
+        <p>date fin d'inscription : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}</p>
+        <p>nombre d'inscription : {{ sortie.nbInscriptionMax }}</p>
+        <p>nombre de place restante : {% sortie.nbInscriptionMax %}</p>
+        <p>campus : {{ sortie.campus }}</p>
+        <p>organisateur : {{ sortie.organisateur.email}}</p>
 
-    <a href="{{ path('app_sortie_index') }}">back to list</a>
+        <a href="{{ path('app_sortie_index') }}">back to list</a>
 
-    <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a>
+        <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a>
 
-    {{ include('sortie/_delete_form.html.twig') }}
+        {% if sortie.participants.count() == sortie.nbInscriptionMax %}
+            complet
+        {% else %}
+            participer
+        {% endif %}
+
+        {{ include('sortie/_delete_form.html.twig') }}
+        {% for participant in sortie.participants %}
+            <p>{{participant.nom}}</p>
+        {% endfor %}
+    </div>
+
 {% endblock %}

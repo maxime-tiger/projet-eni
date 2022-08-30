@@ -9,7 +9,8 @@
 {% block main %}
     
     <div class="title">
-        <h1> Les sorties </h1>
+       <h1> Les sorties
+       </h1>
     </div>
     <h3>Filtrer les sorties</h3>
             <div class="ms-4 p-3 col-3">
@@ -39,11 +40,15 @@
     <div class="card-content">
     {% for sortie in sorties %}
             
-        <div class="card">
-            <img src="light.jpg" alt="light" class="icon">
-            <p class="title">Favourites</p>
-            <p class="text">Check all your favourites in one place.</p>
-        </div>
+        <a href="{{path('app_sortie_show', {'id': sortie.id} )}}" class="card-link">
+            <div class="card">
+                {# <img src="light.jpg" alt="light" class="icon"> #}
+                <p class="title">{{sortie.nom}}</p>
+                <p class="text">Check all your favourites in one place.</p>
+                <p class="date">{{sortie.DateHeureDebut | date("d m Y")}}</p>
+                <p class="desc">{{sortie.InfosSortie}}</p>
+            </div>
+        </a>
 
     {% endfor %}
     </div>
