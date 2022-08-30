@@ -7,6 +7,7 @@ use App\Entity\Sortie;
 use App\Entity\Participant;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,27 +55,6 @@ class SortieController extends AbstractController
     #[Route('/{id}', name: 'app_sortie_show', methods: ['GET'])]
     public function show(Sortie $sortie, Request $request, SortieRepository $sortieRepository): Response
     {
-        
-        /* $user = $request->get('participer'); */
-
-        /* dd($request->get('participer')); */
-        $form = $this->createForm(SortieType::class, $sortie);
-        $form->handleRequest($request);
-        
-        /* $val = $request->get('participant[email]'); */
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            dd($form->getData());
-            /* $sortieRepository->addParticipant($sortie, true);
-
-            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER); */
-        }
-
-        
-        
-        /* if ($val == $this->getUser()->getEmail()){
-            $sortieRepository -> addParticipant($this->getUser());
-        } */
 
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
@@ -108,6 +88,32 @@ class SortieController extends AbstractController
         }
 
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/{participant}', name: 'app_sortie_participer', methods: ['GET'])]
+    public function participer(Sortie $sortie, Participant $participant, EntityManagerInterface $em): Response
+    {
+        $sortie->addParticipant($participant);
+
+        $em->persist($sortie);
+        $em->flush();
+
+
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+    }
+    
+    #[Route('/{id}/{participant}', name: 'app_sortie_desister', methods: ['GET'])]
+    public function desister(Sortie $sortie, Participant $participant, EntityManagerInterface $em): Response
+    {
+
+        
+        $sortie->removeParticipant($participant);
+
+        $em->persist($sortie);
+        $em->flush();
+
+
+        return $this->redirectToRoute('app_sortie_new', [], Response::HTTP_SEE_OTHER);
     }
 
 }

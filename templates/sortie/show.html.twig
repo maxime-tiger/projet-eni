@@ -22,14 +22,20 @@
         <p>ville : {{ sortie.lieu.ville.nom }}</p>
         <p>organisateur : {{ sortie.organisateur.email}}</p>
 
-        <form name="participer" >
-            <input type="text" id="participant_email" name="participant[email]" value={{app.user.email}} hidden>
-            <button>Participer</button>
-        </form>
-        
-        
+        {# bouton participer ou desister #}
+        {% if app.user in sortie.participants %}
+            <a href="{{path('app_sortie_desister', {"id": sortie.id, "participant": app.user.id})}}">
+                <button>desister</button>
+            </a>
+        {% else %}
+            <a href="{{path('app_sortie_participer', {"id": sortie.id, "participant": app.user.id})}}">
+                <button>Participer</button>
+            </a>
+        {% endif %}
 
         <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
+
+        {# affichage du bouton supprimmer et modifier en fonction de la personne connecté #}
         {% if app.user.email == sortie.organisateur.email %}
             <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">Modifier</a>
             {{ include('sortie/_delete_form.html.twig') }}
@@ -37,6 +43,7 @@
             <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}" hidden>edit</a>
         {% endif %}
         
+        {# tableau de personne participant a la sortie #}
         <table class="tableau">
             <thead>
                 <tr>
