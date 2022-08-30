@@ -51,15 +51,13 @@ class SortieRepository extends ServiceEntityRepository
      * @return Sortie[]
      */
     public function findSearch(Filters $filters ,UserInterface $participant): array
-    {
- 
-       
+    { 
+
         //Récupère tous les événements
         $query = $this->createQueryBuilder ('sortie')
             ->select('sortie', 'campus')
             ->join('sortie.campus', 'campus') ;
 
-       
         //Si des filtres sont séléctionnés, afine la recherche
         //Test le champ de texte
         if (!empty($filters->text)) {

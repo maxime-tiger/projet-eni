@@ -9,34 +9,37 @@
 {% block main %}
     
     <div class="title">
-       <h1> Les sorties
-       </h1>
+        <h1>Les sorties</h1>
     </div>
-    <h3>Filtrer les sorties</h3>
-            <div class="ms-4 p-3 col-3">
-                {{ form_start(filtersForm) }}
-                <div class="pb-3">
-                    {{ form_row(filtersForm.campus) }}
-                </div>
-                <div class="pb-3">
-                    {{ form_row(filtersForm.text) }}
-                </div>
-                <div class="row">
-                    <div class="p-3 col-6">
-                        Entre
-                        {{ form_row(filtersForm.dateHeureDebut) }}
-                    </div>
-                  
-                </div>
-            </div>
-            <div class="col-5">
-                {{ form_row(filtersForm.organisateur) }}
+    <div>
 
+        <h3>Filtrer les sorties</h3>
+        <div>
+            {{ form_start(filtersForm) }}
+            <div>
+                {{ form_row(filtersForm.campus) }}
             </div>
-            <div class="col-2">
-                {{ form_row(filtersForm.search) }}
-                {{ form_end(filtersForm) }}
+            <div>
+                {{ form_row(filtersForm.text) }}
             </div>
+            <div>
+                <div>
+                    Entre
+                    {{ form_row(filtersForm.dateHeureDebut) }}
+                </div>
+            </div>
+        </div>
+        <div>
+            {{ form_row(filtersForm.organisateur) }}
+
+        </div>
+        <div>
+            {{ form_row(filtersForm.search) }}
+            {{ form_end(filtersForm) }}
+        </div>
+
+    </div>
+
     <div class="card-content">
     {% for sortie in sorties %}
             
