@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Lieu;
+use App\Entity\Ville;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +18,11 @@ class LieuType extends AbstractType
             ->add('rue')
             ->add('latitude')
             ->add('longitude')
-            /* ->add('lieu') */
+            ->add('ville', EntityType::class, [
+                'required' => true,
+                'class' => Ville::class,
+                'choice_label' => 'nom'
+            ])
         ;
     }
 

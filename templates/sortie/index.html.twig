@@ -4,43 +4,27 @@
     <link rel="stylesheet" href="{{ asset('css/sortieIndex.css')}}">
 {% endblock %}
 
+{% block javascripts %}
+    <script defer src="{{ asset('js/app.js')}}"></script>
+{% endblock %}
+
 {% block title %}Sortie index{% endblock %}
 
 {% block main %}
     
-    <div class="title">
+    <div class="titre">
         <h1>Les sorties</h1>
     </div>
     <div>
-
         <h3>Filtrer les sorties</h3>
-        <div>
-            {{ form_start(filtersForm) }}
-            <div>
-                {{ form_row(filtersForm.campus) }}
-            </div>
-            <div>
-                {{ form_row(filtersForm.text) }}
-            </div>
-            <div>
-                <div>
-                    Entre
-                    {{ form_row(filtersForm.dateHeureDebut) }}
-                </div>
-            </div>
-        </div>
-        <div>
-            {{ form_row(filtersForm.organisateur) }}
-
-        </div>
-        <div>
-            {{ form_row(filtersForm.search) }}
-            {{ form_end(filtersForm) }}
-        </div>
-
+        <label for="searchbox">Search</label>
+        <input 
+        type="search" 
+        oninput="liveSearch()" 
+        id="searchbox" >
     </div>
 
-    <div class="card-content">
+    <div class="card-content items">
     {% for sortie in sorties %}
             
         <div class="card">
@@ -49,10 +33,14 @@
                 <p class="title">{{sortie.nom}}</p>
                 <p class="text">{{sortie.InfosSortie}}</p>
                 <p class="date">{{sortie.DateHeureDebut | date("d m Y")}}</p>
+                <p hidden>{{sortie.campus.nom}}</p>
+                <p hidden>{{sortie.lieu.ville.nom}}</p>
             </a>
         </div>
 
     {% endfor %}
     </div>
+
+    <span class="is-hidden">secret</span> 
     
 {% endblock %}

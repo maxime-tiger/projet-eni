@@ -73,6 +73,9 @@
                             </ul>
                         </div> #}
                         <li class="uk-active"><a href="{{path('app_logout')}}">Se déconnecter</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="uk-active"><a href="{{path('app_admin')}}">Administrateur</a></li>
+                        {% endif %} 
                     </li>
                 </ul>
             </div>

@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Filter\NameFilter;
 use App\Entity\Campus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -41,20 +40,6 @@ class CampusRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-   /**
-     * @param NameFilter $campusFilter
-     * @return Campus[]
-     */
-    public function findName(NameFilter $campusFilter): array
-    {
-        $query = $this->createQueryBuilder('campus')
-        ->andWhere('campus.name LIKE :text')
-        ->setParameter('text',"%{$campusFilter->text}%" );
-
-        return $query->getQuery()->getResult();
-    }
-
 
 //    /**
 //     * @return Campus[] Returns an array of Campus objects
