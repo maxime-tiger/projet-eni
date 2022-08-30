@@ -92,8 +92,10 @@ public function delete(Request $request, Sortie $sortie, SortieRepository $sorti
         $sortieRepository->remove($sortie, true);
     }
     return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
-
 }
+
+
+
 #[Route('/{id}/{participant}', name: 'app_sortie_participer', methods: ['GET'])]
 public function participer(Sortie $sortie, Participant $participant, EntityManagerInterface $em): Response
 {
@@ -102,8 +104,10 @@ public function participer(Sortie $sortie, Participant $participant, EntityManag
     $em->flush();
     return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
 }
-    
-    #[Route('/{id}/{participant}', name: 'app_sortie_desister', methods: ['GET'])]
+
+
+
+#[Route('/{id}/{participant}', name: 'app_sortie_desister', methods: ['GET'])]
     public function desister(Sortie $sortie, Participant $participant, EntityManagerInterface $em): Response
     {
 
