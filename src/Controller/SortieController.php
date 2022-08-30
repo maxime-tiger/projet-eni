@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use app\Filter\Filters;
+use App\Filter\Filters;
 use App\Entity\Sortie;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\SortieType;
 use App\Entity\Participant;
-use Doctrine\ORM\EntityManager;
+use App\Form\acdType;
 use Doctrine\ORM\EntityManagerInterface;
 
 
