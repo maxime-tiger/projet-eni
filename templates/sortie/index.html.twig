@@ -15,15 +15,14 @@
     <div class="card-content">
     {% for sortie in sorties %}
             
-        <a href="{{path('app_sortie_show', {'id': sortie.id} )}}" class="card-link">
-            <div class="card">
+        <div class="card">
+            <a href="{{path('app_sortie_show', {'id': sortie.id} )}}" class="card-link">
                 {# <img src="light.jpg" alt="light" class="icon"> #}
                 <p class="title">{{sortie.nom}}</p>
-                <p class="text">Check all your favourites in one place.</p>
+                <p class="text">{{sortie.InfosSortie}}</p>
                 <p class="date">{{sortie.DateHeureDebut | date("d m Y")}}</p>
-                <p class="desc">{{sortie.InfosSortie}}</p>
-            </div>
-        </a>
+            </a>
+        </div>
 
     {% endfor %}
     </div>

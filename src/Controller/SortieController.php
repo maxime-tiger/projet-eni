@@ -2,16 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Ville;
 use App\Form\SortieType;
 use App\Entity\Sortie;
-use App\Entity\Lieu;
+use App\Entity\Participant;
 use App\Repository\SortieRepository;
-use DateTime;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -56,29 +52,34 @@ class SortieController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_sortie_show', methods: ['GET'])]
-    public function show(Sortie $sortie): Response
+    public function show(Sortie $sortie, Request $request, SortieRepository $sortieRepository): Response
     {
+        
+        /* $user = $request->get('participer'); */
+
+        /* dd($request->get('participer')); */
+        $form = $this->createForm(SortieType::class, $sortie);
+        $form->handleRequest($request);
+        
+        /* $val = $request->get('participant[email]'); */
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd($form->getData());
+            /* $sortieRepository->addParticipant($sortie, true);
+
+            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER); */
+        }
+
+        
+        
+        /* if ($val == $this->getUser()->getEmail()){
+            $sortieRepository -> addParticipant($this->getUser());
+        } */
 
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
         ]);
-
-        //Test si l'utilisateur est déjà inscrit ou non
-        /* $subOrNot = false;
-        foreach ($participants as $participant) {
-            //Si oui, true, pour l'affichage du bouton "Se désinscrire"
-            if ($this->getUser() == $participant) {
-                $subOrNot = true;
-            }
-        } */
-
-
-        /* //Renvoie vers une page de détail sans modification possible
-        return $this->render('sortie/show.html.twig', [
-            'sortie' => $sortie,
-            'participants' => $participants,
-            'subOrNot' => $subOrNot,
-        ]); */
+        
     }
 
     #[Route('/{id}/edit', name: 'app_sortie_edit', methods: ['GET', 'POST'])]
@@ -108,4 +109,5 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

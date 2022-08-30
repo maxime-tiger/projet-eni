@@ -20,3 +20,16 @@
     font-size: 27px;
     width: 100%;
 }
+
+.tableau{
+    /* border: 1px solid black; */
+    color: black;
+}
+
+.tableau th{
+    border: 1px solid black;
+}
+
+.tableau td{
+    border: 1px solid black;
+}
