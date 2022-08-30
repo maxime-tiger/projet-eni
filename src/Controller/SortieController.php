@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Form\SortieType;
+use app\Filter\Filters;
 use App\Entity\Sortie;
-use App\Entity\Participant;
 use App\Repository\SortieRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +42,7 @@ return $this->render('sortie/index.html.twig',
         'sorties' => $filterRepository->findAll()
     ]);
 }
-   
+
 #[Route('/new', name: 'app_sortie_new', methods: ['GET', 'POST'])]
 public function new(Request $request, SortieRepository $sortieRepository): Response
 {
@@ -104,18 +102,6 @@ public function participer(Sortie $sortie, Participant $participant, EntityManag
     $em->flush();
     return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
 }
-
-    #[Route('/{id}/{participant}', name: 'app_sortie_participer', methods: ['GET'])]
-    public function participer(Sortie $sortie, Participant $participant, EntityManagerInterface $em): Response
-    {
-        $sortie->addParticipant($participant);
-
-        $em->persist($sortie);
-        $em->flush();
-
-
-        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
-    }
     
     #[Route('/{id}/{participant}', name: 'app_sortie_desister', methods: ['GET'])]
     public function desister(Sortie $sortie, Participant $participant, EntityManagerInterface $em): Response
@@ -131,12 +117,4 @@ public function participer(Sortie $sortie, Participant $participant, EntityManag
         return $this->redirectToRoute('app_sortie_new', [], Response::HTTP_SEE_OTHER);
     }
 
-#[Route('/{id}/{participant}', name: 'app_sortie_desister', methods: ['GET'])]
-public function desister(Sortie $sortie, Participant $participant, EntityManagerInterface $em): Response
-{
-    $sortie->removeParticipant($participant);
-    $em->persist($sortie);
-    $em->flush();
-    return $this->redirectToRoute('app_sortie_new', [], Response::HTTP_SEE_OTHER);
-}
 }
