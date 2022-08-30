@@ -138,3 +138,7 @@ background-position: -120px;
 transition: all 0.3s ease;
 filter: grayscale(0);
 }
+
+.is-hidden {
+  display: none;
+}
