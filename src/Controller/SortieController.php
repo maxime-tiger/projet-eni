@@ -2,13 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Ville;
 use App\Form\SortieType;
 use App\Entity\Sortie;
 use App\Entity\Participant;
 use App\Repository\SortieRepository;
-use DateTime;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,23 +73,6 @@ return $this->render('sortie/index.html.twig',
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
         ]);
-
-        //Test si l'utilisateur est déjà inscrit ou non
-        /* $subOrNot = false;
-        foreach ($participants as $participant) {
-            //Si oui, true, pour l'affichage du bouton "Se désinscrire"
-            if ($this->getUser() == $participant) {
-                $subOrNot = true;
-            }
-        } */
-
-
-        /* //Renvoie vers une page de détail sans modification possible
-        return $this->render('sortie/show.html.twig', [
-            'sortie' => $sortie,
-            'participants' => $participants,
-            'subOrNot' => $subOrNot,
-        ]); */
     }
 
     #[Route('/{id}/edit', name: 'app_sortie_edit', methods: ['GET', 'POST'])]
