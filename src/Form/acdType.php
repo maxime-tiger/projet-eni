@@ -41,8 +41,7 @@ class acdType extends AbstractType
                 'label' => 'Sorties dont je suis l\'organisateur.trice',
                 'required' => false,
             ])
-        
-            
+
             ->add('passedEvents', CheckboxType::class, [
                 'label' => 'Sorties passées',
                 'required' => false,

@@ -24,7 +24,7 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    /*
+    
     public function add(Sortie $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -43,12 +43,9 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
     
-    */
-
     
 
-
-/**
+    /**
      * @param Filters $filters
      * @param ParticipantInterface $Participant
      * @return Sortie[]
