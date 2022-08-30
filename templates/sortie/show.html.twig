@@ -14,27 +14,53 @@
         <p>le : {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d m Y')}} à 
         {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('H')}}h
         {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('i')}}</p>
-        <p>Durée de la sortie : {{ sortie.duree ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}</p>
+        <p>Durée de la sortie : {{ sortie.duree | date('H i') }}</p>
         <p>date fin d'inscription : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}</p>
-        <p>nombre d'inscription : {{ sortie.nbInscriptionMax }}</p>
-        <p>nombre de place restante : {% sortie.nbInscriptionMax %}</p>
+        <p>nombre de place restante : {{ sortie.nbInscriptionMax - sortie.participants.count() }}</p>
         <p>campus : {{ sortie.campus }}</p>
+        <p>lieu : {{ sortie.lieu.nom }}</p>
+        <p>ville : {{ sortie.lieu.ville.nom }}</p>
         <p>organisateur : {{ sortie.organisateur.email}}</p>
 
-        <a href="{{ path('app_sortie_index') }}">back to list</a>
-
-        <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a>
-
-        {% if sortie.participants.count() == sortie.nbInscriptionMax %}
-            complet
+        {# bouton participer ou desister #}
+        {% if app.user in sortie.participants %}
+            <a href="{{path('app_sortie_desister', {"id": sortie.id, "participant": app.user.id})}}">
+                <button>desister</button>
+            </a>
         {% else %}
-            participer
+            <a href="{{path('app_sortie_participer', {"id": sortie.id, "participant": app.user.id})}}">
+                <button>Participer</button>
+            </a>
         {% endif %}
 
-        {{ include('sortie/_delete_form.html.twig') }}
-        {% for participant in sortie.participants %}
-            <p>{{participant.nom}}</p>
-        {% endfor %}
+        <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
+
+        {# affichage du bouton supprimmer et modifier en fonction de la personne connecté #}
+        {% if app.user.email == sortie.organisateur.email %}
+            <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">Modifier</a>
+            {{ include('sortie/_delete_form.html.twig') }}
+        {% else %}
+            <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}" hidden>edit</a>
+        {% endif %}
+        
+        {# tableau de personne participant a la sortie #}
+        <table class="tableau">
+            <thead>
+                <tr>
+                    <th>nom</th>
+                    <th>email</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for participant in sortie.participants %}
+                <tr>
+                    <td>{{participant.nom}} {{participant.prenom}}</td>
+                    <td>{{participant.email}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
     </div>
 
 {% endblock %}

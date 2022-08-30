@@ -97,7 +97,7 @@ color: white;
 text-transform: uppercase;
 }
 
-.card .desc {
+/* .card .desc {
 width: 100%;
 font-size: small;
 margin: 0;
@@ -107,7 +107,7 @@ text-overflow:ellipsis;
 margin-top: 30px;
 color: white;
 text-transform: uppercase;
-}
+} */
 
 .card .text {
 width: 80%;
