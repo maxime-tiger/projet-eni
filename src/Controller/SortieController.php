@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Filter\Filters;
 use App\Entity\Sortie;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\SortieType;
 use App\Entity\Participant;
-use App\Form\acdType;
 use Doctrine\ORM\EntityManagerInterface;
 
 
@@ -22,26 +20,13 @@ class SortieController extends AbstractController
 
 
     #[Route('/', name: 'app_sortie_index', methods: ['GET'])]
-    public function index(Request $request, SortieRepository $filterRepository ): Response
+    public function index(Request $request, SortieRepository $sortieRepository ): Response
     {
-        
-
-    //Instanciation de Filters et gestion du formulaire
-    $filters = new Filters();
-    $filtersForm = $this->createForm(AcdType::class, $filters);
-    $filtersForm->handleRequest($request);
-
-//Recherche des données via le repository Sortie
-//avec comme paramètres les filtres renseignés et l'utilisateur connecté
-$filtersResults = $filterRepository->findSearch($filters, $this->getUser());
-
-return $this->render('sortie/index.html.twig',
-    [
-        'filtersForm' => $filtersForm->createView(),
-        'filtersResults' => $filtersResults,
-        'sorties' => $filterRepository->findAll()
-    ]);
-}
+        return $this->render('sortie/index.html.twig',
+        [
+            'sorties' => $sortieRepository->findAll()
+        ]);
+    }
 
 #[Route('/new', name: 'app_sortie_new', methods: ['GET', 'POST'])]
 public function new(Request $request, SortieRepository $sortieRepository): Response
