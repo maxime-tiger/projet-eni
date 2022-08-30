@@ -33,7 +33,8 @@
                 <p class="title">{{sortie.nom}}</p>
                 <p class="text">{{sortie.InfosSortie}}</p>
                 <p class="date">{{sortie.DateHeureDebut | date("d m Y")}}</p>
-                <p class="date" hidden>{{sortie.campus.nom}}</p>
+                <p hidden>{{sortie.campus.nom}}</p>
+                <p hidden>{{sortie.lieu.ville.nom}}</p>
             </a>
         </div>
 

@@ -1,4 +1,5 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
+    <a href="{{ path("app_lieu_new")}}">Nouveau lieu</a>
     <button class="btn">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
