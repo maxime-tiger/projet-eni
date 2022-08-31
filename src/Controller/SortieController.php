@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Sortie;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,6 +38,10 @@ public function new(Request $request, SortieRepository $sortieRepository): Respo
     /* $val = $request->get('sortie[register]');
     dd($val); */
     $idutil = $this->getUser();
+    $dateNow = new DateTime("now");
+   /* dd($dateNow );*/
+
+         
     /* dd($idutil); */
     $sortie->setOrganisateur($idutil);
     if ($form->isSubmitted() && $form->isValid()) {
