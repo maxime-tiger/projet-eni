@@ -92,7 +92,7 @@ public function participer(Sortie $sortie, Participant $participant, EntityManag
 
 
 
-#[Route('/{id}/{participant}', name: 'app_sortie_desister', methods: ['GET'])]
+#[Route('sortie/{id}/{participant}', name: 'app_sortie_desister', methods: ['GET'])]
     public function desister(Sortie $sortie, Participant $participant, EntityManagerInterface $em): Response
     {
 
@@ -103,7 +103,7 @@ public function participer(Sortie $sortie, Participant $participant, EntityManag
         $em->flush();
 
 
-        return $this->redirectToRoute('app_sortie_new', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
 
 }
