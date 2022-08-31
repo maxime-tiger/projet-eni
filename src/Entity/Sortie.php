@@ -26,7 +26,9 @@ class Sortie
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
-    
+    /**
+     * @Assert\NotNull(, message="La durée ne peut pas être null !")
+     */
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $duree = null;
 
