@@ -4,7 +4,34 @@
 
 {% block main %}
 
-<div>
-    Page d'acceuil de l'admin
-</div>
+    {% for campus in campuses %}
+            
+            <p>{{campus.nom}}</p>
+
+    {% endfor %}
+
+    <br>
+    
+    {% for sortie in sorties %}
+            
+        <p>{{sortie.nom}}</p>
+
+    {% endfor %}
+
+    <br>
+    
+    {% for participant in participants %}
+            
+        <p>{{participant.nom}} {{participant.prenom}}</p>
+
+    {% endfor %}
+
+    <br>
+    
+    {% for lieu in lieux %}
+            
+        <p>{{lieu.nom}}</p>
+
+    {% endfor %}
+
 {% endblock %}

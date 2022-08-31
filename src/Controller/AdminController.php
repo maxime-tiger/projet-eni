@@ -8,6 +8,8 @@ use App\Form\CampusType;
 use App\Form\ParticipantType;
 use App\Repository\CampusRepository;
 use App\Repository\ParticipantRepository;
+use App\Repository\SortieRepository;
+use App\Repository\LieuRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,11 +37,14 @@ class AdminController extends AbstractController
      * @param CampusRepository $campusRepository
      * @return Response
      */
-    public function index(CampusRepository $campusRepository): Response
+    public function index(CampusRepository $campusRepository, SortieRepository $sortieRepository, ParticipantRepository $participantRepository, LieuRepository $lieuRepository): Response
     {
         
             return $this->render('admin/index.html.twig', [
                 'campuses' => $campusRepository->findAll(),
+                'sorties' => $sortieRepository->findAll(),
+                'participants' => $participantRepository->findAll(),
+                'lieux' => $lieuRepository->findAll()
             ]);
     }
 
