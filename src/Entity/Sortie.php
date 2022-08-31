@@ -32,7 +32,9 @@ class Sortie
 
     /**
      * @Assert\LessThanOrEqual(propertyPath="dateHeureDebut", message="La date de fin des inscriptions doit être avant le début de la sortie !")
-     */
+     * @Assert\GreaterThan("today", message="La date de début doit être dans le futur !")
+    */
+    
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
