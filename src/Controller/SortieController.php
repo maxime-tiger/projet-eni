@@ -70,7 +70,7 @@ public function edit(Request $request, Sortie $sortie, SortieRepository $sortieR
     ]);
 }
 
-#[Route('/{id}', name: 'app_sortie_delete', methods: ['POST'])]
+#[Route('/delete/{id}', name: 'app_sortie_delete', methods: ['GET', 'POST'])]
 public function delete(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
 {
     if ($this->isCsrfTokenValid('delete'.$sortie->getId(), $request->request->get('_token'))) {

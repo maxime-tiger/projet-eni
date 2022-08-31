@@ -1,37 +1,96 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset("css/admin_index.css") }}">
+{% endblock %}
+
 {% block title %}Acceuil - Admin{% endblock %}
 
 {% block main %}
 
-    {% for campus in campuses %}
+    {# groupe des tableaux #}
+    <div class="group_list">
+
+        {# liste des campus #}
+        <div class="list">
+            <h2>Campus</h2>
+            <table>
+            <caption hidden>tableau de campus</caption>
+                <tr>
+                    <th>campus</th>
+                    <th class="action">actions</th>
+                </tr>
+                {% for campus in campuses %}
             
-            <p>{{campus.nom}}</p>
+                <tr>
+                    <td>{{campus.nom}}</td>
+                    <td><a href="{{ path('app_admin_campus_edit', {'id': campus.id}) }}">edit</a> <a href="{{ path('app_admin_campus_delete', {'id': campus.id}) }}" onclick="return confirm('Are you sure you want to delete this item?');">delete</a></td>
+                </tr>
 
-    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
 
-    <br>
+        {# liste des sorties #}
+        <div class="list">
+            <h2>Sorties</h2>
+            <table>
+            <caption hidden>tableau de sortie</caption>
+                <tr>
+                    <th>sortie</th>
+                    <th class="action">actions</th>
+                </tr>
+            {% for sortie in sorties %}
+
+                <tr>
+                    <td>{{sortie.nom}}</td>
+                    <td><a href="{{ path('app_admin_sortie_edit', {'id': sortie.id}) }}">edit</a> <a href="{{ path('app_admin_sortie_delete', {'id': sortie.id}) }}" onclick="return confirm('Are you sure you want to delete this item?');">delete</a></td>
+                </tr>
+
+            {% endfor %}
+            </table>
+        </div>
+
+        {# liste des participants #}
+        <div class="list">
+            <h2>Participants</h2>
+            <table>
+            <caption hidden>tableau de participant</caption>
+                <tr>
+                    <th>participant</th>
+                    <th class="action">actions</th>
+                </tr>
+            {% for participant in participants %}
+                
+                <tr>
+                    <td>{{participant.nom}} {{participant.prenom}}</td>
+                    <td><a href="{{ path('app_admin_participant_delete', {'id': participant.id}) }}" onclick="return confirm('Are you sure you want to delete this item?');">delete</a></td>
+                </tr>
+
+            {% endfor %}
+            </table>
+        </div>
+
+        {# liste des lieux #}
+        <div class="list">
+            <h2>Lieux</h2>
+            <table>
+            <caption hidden>tableau de lieu</caption>
+                <tr>
+                    <th>lieu</th>
+                    <th class="action">actions</th>
+                </tr>
+            {% for lieu in lieux %}
+                
+                <tr>
+                    <td>{{lieu.nom}}</td>
+                    <td><a href="{{ path('app_admin_lieu_delete', {'id': lieu.id}) }}" onclick="return confirm('Are you sure you want to delete this item?');">delete</a></td>
+                </tr>
+
+            {% endfor %}
+            </table>
+        </div>
+
+    </div>
     
-    {% for sortie in sorties %}
-            
-        <p>{{sortie.nom}}</p>
-
-    {% endfor %}
-
-    <br>
-    
-    {% for participant in participants %}
-            
-        <p>{{participant.nom}} {{participant.prenom}}</p>
-
-    {% endfor %}
-
-    <br>
-    
-    {% for lieu in lieux %}
-            
-        <p>{{lieu.nom}}</p>
-
-    {% endfor %}
-
 {% endblock %}
