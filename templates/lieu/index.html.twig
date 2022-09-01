@@ -3,7 +3,7 @@
 {% block title %}Lieu index{% endblock %}
 
 {% block main %}
-    <h1>Lieu index</h1>
+    <h1> Les Lieux </h1>
 
     <table class="table">
         <thead>
@@ -25,8 +25,8 @@
                 <td>{{ lieu.latitude }}</td>
                 <td>{{ lieu.longitude }}</td>
                 <td>
-                    <a href="{{ path('app_lieu_show', {'id': lieu.id}) }}">show</a>
-                    <a href="{{ path('app_lieu_edit', {'id': lieu.id}) }}">edit</a>
+                    <a href="{{ path('app_lieu_show', {'id': lieu.id}) }}">showVoir</a>
+                    <a href="{{ path('app_lieu_edit', {'id': lieu.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_lieu_new') }}">Create new</a>
+    <a href="{{ path('app_lieu_new') }}">Creer un nouveau lieu</a>
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block title %}Participant index{% endblock %}
 
 {% block main %}
-    <h1>Participant index</h1>
+    <h1> Participant </h1>
 
     <table class="table">
         <thead>
@@ -35,8 +35,8 @@
                 <td>{{ participant.administrateur ? 'Yes' : 'No' }}</td>
                 <td>{{ participant.actif ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_participant_show', {'id': participant.id}) }}">show</a>
-                    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">edit</a>
+                    <a href="{{ path('app_participant_show', {'id': participant.id}) }}">Voir</a>
+                    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -47,5 +47,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_participant_new') }}">Create new</a>
+    <a href="{{ path('app_participant_new') }}">Creer un nouveau Participant</a>
 {% endblock %}

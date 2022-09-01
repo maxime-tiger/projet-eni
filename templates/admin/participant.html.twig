@@ -35,17 +35,17 @@
                 <td>{{ participant.administrateur ? 'Yes' : 'No' }}</td>
                 <td>{{ participant.actif ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_participant_show', {'id': participant.id}) }}">show</a>
-                    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">edit</a>
+                    <a href="{{ path('app_participant_show', {'id': participant.id}) }}">Voir</a>
+                    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">Supprimer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="12">no records found</td>
+                <td colspan="12">Pas de données trouvées</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_participant_new') }}">Create new</a>
+    <a href="{{ path('app_admin_participant_new') }}">Creer un nouveau participant</a>
 {% endblock %}
