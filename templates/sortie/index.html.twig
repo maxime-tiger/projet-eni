@@ -29,7 +29,6 @@
             
         <div class="card">
             <a href="{{path('app_sortie_show', {'id': sortie.id} )}}" class="card-link">
-                {# <img src="light.jpg" alt="light" class="icon"> #}
                 <p class="title">{{sortie.nom}}</p>
                 <p class="text">{{sortie.InfosSortie}}</p>
                 <p class="date">{{sortie.DateHeureDebut | date("d m Y")}}</p>

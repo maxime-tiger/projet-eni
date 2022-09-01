@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}création d'un nouvelle ville{% endblock %}
+
+{% block main %}
+    <h1>Créer une ville</h1>
+
+    {{ include('ville/_form.html.twig') }}
+
+    <a href="{{ path('app_admin') }}">Retour à l'admin</a>
+{% endblock %}
