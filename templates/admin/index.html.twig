@@ -24,7 +24,7 @@
             
                 <tr>
                     <td>{{campus.nom}}</td>
-                    <td><a href="{{ path('app_admin_campus_edit', {'id': campus.id}) }}">edit</a> <a href="{{ path('app_admin_campus_delete', {'id': campus.id}) }}" onclick="return confirm('Are you sure you want to delete this item?');">Supprimer</a></td>
+                    <td><a href="{{ path('app_admin_campus_edit', {'id': campus.id}) }}">Modifier</a> <a href="{{ path('app_admin_campus_delete', {'id': campus.id}) }}" onclick="return confirm('Are you sure you want to delete this item?');">Supprimer</a></td>
                 </tr>
 
                 {% endfor %}
@@ -44,7 +44,7 @@
 
                 <tr>
                     <td class="nom_sortie"><p>{{sortie.nom}}</p></td>
-                    <td><a href="{{ path('app_admin_sortie_edit', {'id': sortie.id}) }}">edit</a> <a href="{{ path('app_admin_sortie_delete', {'id': sortie.id}) }}" onclick="return confirm('Are you sure you want to delete this item?');">Supprimer</a></td>
+                    <td><a href="{{ path('app_admin_sortie_edit', {'id': sortie.id}) }}">Modifier</a> <a href="{{ path('app_admin_sortie_delete', {'id': sortie.id}) }}" onclick="return confirm('Are you sure you want to delete this item?');">Supprimer</a></td>
                 </tr>
 
             {% endfor %}
