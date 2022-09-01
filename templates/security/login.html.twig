@@ -39,7 +39,7 @@
                     <label for="inputEmail">Email</label>
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>            </div>
                 <div class="input-password">
-                    <label for="inputPassword">Password</label>
+                    <label for="inputPassword">Mot de passe</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 </div>
                 <a href="#" class="forgot-password">Mot de passe oublié</a>
             </div>
-            <button class="connexion-btn" type="submit">Sign in</button>
+            <button class="connexion-btn" type="submit">Valider</button>
 
             {% if error %}
                 <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
