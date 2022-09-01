@@ -6,12 +6,16 @@ use App\Entity\Campus;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Entity\Lieu;
+use App\Entity\Ville;
 use App\Form\CampusType;
 use App\Form\ParticipantType;
+use App\Form\SortieType;
+use App\Form\VilleType;
 use App\Repository\CampusRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Repository\LieuRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +23,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 #[Route('/admin')]
 class AdminController extends AbstractController
 {
@@ -39,14 +45,15 @@ class AdminController extends AbstractController
      * @param CampusRepository $campusRepository
      * @return Response
      */
-    public function index(CampusRepository $campusRepository, SortieRepository $sortieRepository, ParticipantRepository $participantRepository, LieuRepository $lieuRepository): Response
+    public function index(CampusRepository $campusRepository, SortieRepository $sortieRepository, ParticipantRepository $participantRepository, LieuRepository $lieuRepository, VilleRepository $villeRepository): Response
     {
         
             return $this->render('admin/index.html.twig', [
                 'campuses' => $campusRepository->findAll(),
                 'sorties' => $sortieRepository->findAll(),
                 'participants' => $participantRepository->findAll(),
-                'lieux' => $lieuRepository->findAll()
+                'lieux' => $lieuRepository->findAll(),
+                'villes' => $villeRepository->findAll()
             ]);
     }
 
@@ -74,7 +81,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $campusRepository->add($campus, true);
 
-            return $this->redirectToRoute('app_admin_campus_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/campusNew.html.twig', [
@@ -102,7 +109,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $campusRepository->add($campus, true);
 
-            return $this->redirectToRoute('app_admin_campus_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/campusModifier.html.twig', [
@@ -157,7 +164,7 @@ class AdminController extends AbstractController
             $entityManager->persist($participant);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_admin_participant_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/participantNew.html.twig', [
@@ -204,7 +211,7 @@ class AdminController extends AbstractController
     }
 
     /* supprimer une sortie */
-    #[Route('/delete/{id}', name: 'app_admin_sortie_delete', methods: ['GET', 'POST'])]
+    #[Route('/sortie/delete/{id}', name: 'app_admin_sortie_delete', methods: ['GET', 'POST'])]
     public function deleteSortie(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
     {
         $sortieRepository->remove($sortie, true);
@@ -213,8 +220,8 @@ class AdminController extends AbstractController
     }
 
     /* modifier une sortie */
-    #[Route('/{id}/edit', name: 'app_admin_sortie_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
+    #[Route('/sortie/edit/{id}', name: 'app_admin_sortie_edit', methods: ['GET', 'POST'])]
+    public function editSortie(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
     {
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
@@ -222,18 +229,64 @@ class AdminController extends AbstractController
             $sortieRepository->add($sortie, true);
             return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->renderForm('sortie/edit.html.twig', [
+        return $this->renderForm('admin/sortieEdit.html.twig', [
             'sortie' => $sortie,
             'form' => $form,
         ]);
     }
 
     /* supprimer un lieu */
-    #[Route('/delete/{id}', name: 'app_admin_lieu_delete', methods: ['GET', 'POST'])]
+    #[Route('/lieu/delete/{id}', name: 'app_admin_lieu_delete', methods: ['GET', 'POST'])]
     public function deleteLieu(Lieu $lieu, LieuRepository $lieuRepository): Response
     {
 
         $lieuRepository->remove($lieu, true);
+
+        return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /* creer une ville */
+    #[Route('/ville/new', name: 'app_admin_ville_new', methods: ['GET', 'POST'])]
+    public function newVille(Request $request, VilleRepository $villeRepository): Response
+    {
+        $ville = new Ville();
+        $form = $this->createForm(VilleType::class, $ville);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $villeRepository->add($ville, true);
+
+            return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('admin/villeNew.html.twig', [
+            'ville' => $ville,
+            'form' => $form,
+        ]);
+    }
+
+     /* modifier une ville */
+    #[Route('/ville/edit/{id}', name: 'app_admin_ville_edit', methods: ['GET', 'POST'])]
+    public function editVille(Request $request, Ville $ville, VilleRepository $villeRepository): Response
+    {
+        $form = $this->createForm(VilleType::class, $ville);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $villeRepository->add($ville, true);
+            return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('admin/villeEdit.html.twig', [
+            'sortie' => $ville,
+            'form' => $form,
+        ]);
+    }
+    
+    /* supprimer une ville */
+    #[Route('/ville/delete/{id}', name: 'app_admin_ville_delete', methods: ['GET', 'POST'])]
+    public function deleteVille(Ville $ville, VilleRepository $villeRepository): Response
+    {
+
+        $villeRepository->remove($ville, true);
 
         return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
     }

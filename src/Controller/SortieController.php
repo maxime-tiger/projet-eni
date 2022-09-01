@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use DateTime;
+
 use App\Entity\Sortie;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,9 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\SortieType;
 use App\Entity\Participant;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-
-
+#[IsGranted('ROLE_USER')]
 #[Route('/sortie')]
 class SortieController extends AbstractController
 {
@@ -35,14 +35,9 @@ public function new(Request $request, SortieRepository $sortieRepository): Respo
     $sortie = new Sortie();
     $form = $this->createForm(SortieType::class, $sortie);
     $form->handleRequest($request);
-    /* $val = $request->get('sortie[register]');
-    dd($val); */
-    $idutil = $this->getUser();
-    $dateNow = new DateTime("now");
-   /* dd($dateNow );*/
 
-         
-    /* dd($idutil); */
+    $idutil = $this->getUser();
+
     $sortie->setOrganisateur($idutil);
     if ($form->isSubmitted() && $form->isValid()) {
         $sortieRepository->add($sortie, true);

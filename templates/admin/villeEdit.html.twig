@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de la Ville{% endblock %}
+
+{% block main %}
+    <h1>Modifier la Ville</h1>
+
+    {{ include('ville/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('app_admin') }}">Retour à l'admin</a>
+{% endblock %}

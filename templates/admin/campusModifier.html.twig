@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Campus{% endblock %}
+{% block title %}Modification du Campus{% endblock %}
 
 {% block main %}
-    <h1>Modifier un Campus</h1>
+    <h1>Modifier le campus</h1>
 
-    {{ include('campus/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('campus/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_campus_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_admin') }}">Retour à l'admin</a>
 
     {{ include('campus/_delete_form.html.twig') }}
 {% endblock %}

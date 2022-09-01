@@ -9,17 +9,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+#[IsGranted('ROLE_USER')]
 #[Route('/participant')]
 class ParticipantController extends AbstractController
 {
     #[Route('/', name: 'app_participant_index', methods: ['GET'])]
     public function index(ParticipantRepository $participantRepository): Response
     {
-        
-
-
-        return $this->render('participant/index.html.twig', [
+            return $this->render('participant/index.html.twig', [
             'participants' => $participantRepository->findAll(),
         ]);
     }
