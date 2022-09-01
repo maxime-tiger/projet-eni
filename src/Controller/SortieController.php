@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use DateTime;
+
 use App\Entity\Sortie;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,9 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\SortieType;
 use App\Entity\Participant;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-
-
+#[IsGranted('ROLE_USER')]
 #[Route('/sortie')]
 class SortieController extends AbstractController
 {
