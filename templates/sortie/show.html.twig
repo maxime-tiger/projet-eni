@@ -19,9 +19,14 @@
 
 {% block main %}
     <div class="content">
+
+        {% if sortie.lieu.latitude == null and sortie.lieu.longitude == null %}
+        <div></div>
+        {% else %}
         <div id="map">
 
         </div>
+        {% endif %}
 
         <div class="detail-sortie">
             <h1>{{ sortie.nom }}</h1>
