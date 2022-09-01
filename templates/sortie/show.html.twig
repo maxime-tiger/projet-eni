@@ -25,7 +25,7 @@
         {# bouton participer ou desister #}
         {% if app.user in sortie.participants %}
             <a href="{{path('app_sortie_desister', {"id": sortie.id, "participant": app.user.id})}}">
-                <button>desister</button>
+                <button>Se Désister</button>
             </a>
         {% else %}
             <a href="{{path('app_sortie_participer', {"id": sortie.id, "participant": app.user.id})}}">
@@ -40,7 +40,7 @@
             <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">Modifier</a>
             {{ include('sortie/_delete_form.html.twig') }}
         {% else %}
-            <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}" hidden>edit</a>
+            <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}" hidden>Modifier</a>
         {% endif %}
         
         {# tableau de personne participant a la sortie #}

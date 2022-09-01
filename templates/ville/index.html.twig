@@ -3,7 +3,7 @@
 {% block title %}Ville index{% endblock %}
 
 {% block main %}
-    <h1>Ville index</h1>
+    <h1> Ville </h1>
 
     <table class="table">
         <thead>
@@ -21,8 +21,8 @@
                 <td>{{ ville.nom }}</td>
                 <td>{{ ville.codePostal }}</td>
                 <td>
-                    <a href="{{ path('app_ville_show', {'id': ville.id}) }}">show</a>
-                    <a href="{{ path('app_ville_edit', {'id': ville.id}) }}">edit</a>
+                    <a href="{{ path('app_ville_show', {'id': ville.id}) }}">Voir</a>
+                    <a href="{{ path('app_ville_edit', {'id': ville.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_ville_new') }}">Create new</a>
+    <a href="{{ path('app_ville_new') }}">Créer un nouvelle ville </a>
 {% endblock %}
