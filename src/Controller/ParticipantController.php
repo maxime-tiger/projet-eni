@@ -77,6 +77,6 @@ class ParticipantController extends AbstractController
             $participantRepository->remove($participant, true);
         }
 
-        return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
 }

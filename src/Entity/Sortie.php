@@ -27,14 +27,15 @@ class Sortie
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     /**
-     * @Assert\NotNull(, message="La durée ne peut pas être null !")
+     * @Assert\NotNull()
+     * @Assert\Type("dateTime")
      */
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $duree = null;
 
     /**
-     * @Assert\LessThanOrEqual(propertyPath="dateHeureDebut", message="La date de fin des inscriptions doit être avant le début de la sortie !")
-     * @Assert\GreaterThan("today", message="La date de début doit être dans le futur !")
+     * @Assert\LessThanOrEqual(propertyPath="dateHeureDebut", message="La date de fin d'inscriptions doit être avant la date de début !")
+     * @Assert\GreaterThan("today", message="La date de fin d'inscriptions doit être après la date de création !")
     */
     
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

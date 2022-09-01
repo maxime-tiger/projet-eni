@@ -43,7 +43,7 @@
             {% for sortie in sorties %}
 
                 <tr>
-                    <td>{{sortie.nom}}</td>
+                    <td class="nom_sortie"><p>{{sortie.nom}}</p></td>
                     <td><a href="{{ path('app_admin_sortie_edit', {'id': sortie.id}) }}">edit</a> <a href="{{ path('app_admin_sortie_delete', {'id': sortie.id}) }}" onclick="return confirm('Are you sure you want to delete this item?');">delete</a></td>
                 </tr>
 

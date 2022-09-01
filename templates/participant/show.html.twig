@@ -8,45 +8,29 @@
 
 {% block main %}
 
-<div class="student-profile">
-    <div class="bodyProfil">
-        <div class="card shadow-sm">
-        <div class="card-header bg-transparent text-center">
-            <h1>{{ participant.prenom }} {{ participant.nom }} </h1>
+    <div class="profil">
+
+        <h1 class="title">Mon Profil</h1>
+    
+        <p>Nom : {{participant.nom}}</p>
+        <p>prenom : {{participant.prenom}}</p>
+        <p>Email : {{ participant.email }}</p>
+        <p>Tel : {{ participant.telephone }}</p>
+        <p>Campus : {{ participant.campus }}</p>
+
+        <div class="btn">
+            {# <a href="{{ path('app_participant_index') }}">Liste des participants</a> #}
+            <a class="btn-modif btn-style" href="{{ path('app_participant_edit', {'id': participant.id}) }}">Modifier</a>
+            <a class="btn-suppr btn-style" href="{{ path('app_participant_delete', {'id': participant.id}) }}">Supprimer</a>
         </div>
-        <div class="card-body">
-            <p class="mb-0"><strong class="pr-1">Email : </strong>{{ participant.email }}</p>
-            <p class="mb-0"><strong class="pr-1">Téléphone : </strong>{{ participant.telephone }}</p>
-            <p class="mb-0"><strong class="pr-1">Campus : </strong>{{ participant.campus }}</p>
-            <p class="mb-0"><strong class="pr-1">Administrateur : </strong>{{ participant.administrateur ? 'Yes' : 'No' }}</p>
-        </div>
-        </div>
-        <div class="card shadow-sm">
-            <div class="card-header bg-transparent border-0">
-                <h2 class="mb-0"><i class="far fa-clone pr-1"></i> Options </h2>
-            </div>
-            <div class="card-body pt-0">
-                <table class="table table-bordered">
-                <tr>
-                    <th width="30%"><a href="{{ path('app_participant_index') }}">Liste des participants</a></th>
-                </tr>
-                <tr>
-                    <th width="30%"><a href="{{ path('app_participant_edit', {'id': participant.id}) }}">Modifier</a></th>
-                </tr>
-                <tr>
-                    <th width="30%">{{ include('participant/_delete_form.html.twig') }}</th>
-                </tr>
-                </table>
-            </div>
-        </div>
+        
+
     </div>
-</div>
 
 
 
 
-
-   {#} <h1>Mon profil</h1>
+{#} <h1>Mon profil</h1>
         
             <table class="table">
                 <tbody>
@@ -93,4 +77,6 @@
 
             <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">Modifier</a>
     {{ include('participant/_delete_form.html.twig') }}{#}
+
+
 {% endblock %}

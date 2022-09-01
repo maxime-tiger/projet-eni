@@ -1,38 +1,36 @@
-
-.student-profile .card .card-header .profile_img {
-    object-fit: cover;
-    margin: 10px auto;
-    border: 10px solid rgb(0, 0, 0);
-    border-radius: 50%;
+.profil {
+    margin-top: 80px;
+    backdrop-filter: blur(6px);
+    background-color: rgba(244, 189, 251, 0.216);
+    border-radius: 15px;
+    padding: 30px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
 }
 
-.student-profile .card h3 {
-    font-size: 20px;
-    font-weight: 700;
+.title{
+    text-decoration: underline;
 }
 
-.student-profile .card p {
-    font-size: 16px;
-    color: rgb(2, 2, 2);
+.btn{
+    display: flex;
+    justify-content: center;
 }
 
-.student-profile .table th,
-.student-profile .table td {
-    font-size: 14px;
-    padding: 5px 10px;
-    color: #000;
+.btn-modif{
+    margin-right: 10px;
 }
 
-.bodyProfil {
-    background-color: #f8f8f8;
-    border-radius: 5%;
-    margin-top: 20%;
-    text-align: center;
-   
-    
+.btn-suppr{
+    margin-left: 10px;
 }
 
+.btn-style{
+    color: black;
+}
 
-
-
-
+.btn-style:hover{
+    color: pink;
+}

@@ -49,3 +49,14 @@ p{
 th{
     border: 1px solid black;
 }
+
+td p{
+    margin: 0;
+    width: 360px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+
+td {
+    text-align: center;
+}
