@@ -4,7 +4,7 @@ function liveSearch() {
     // Locate the search input
     let search_query = document.getElementById("searchbox").value;
     // Loop through the cards
-    for (var i = 0; i < cards.length; i++) {
+    for (let i = 0; i < cards.length; i++) {
       // If the text is within the card...
         if(cards[i].innerText.toLowerCase()
         // ...and the text matches the search query...
