@@ -2,10 +2,18 @@
 
 {% block title %}Nouveau Lieu{% endblock %}
 
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/form.css')}}">
+{% endblock %}
+
 {% block main %}
-    <h1>Créer un Lieu</h1>
 
-    {{ include('lieu/_form.html.twig') }}
+    <div class="form">
+        <h1>Créer un Lieu</h1>
 
-    <a href="{{ path('app_sortie_index') }}">Acceuil</a>
+        {{ include('lieu/_form.html.twig') }}
+
+        <a href="{{ path('app_sortie_index') }}">Accueil</a>
+    </div>
+    
 {% endblock %}

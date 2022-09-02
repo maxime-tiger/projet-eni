@@ -1,14 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Sortie{% endblock %}
+{% block title %}Nouvelles sortie{% endblock %}
+
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/form.css')}}">
+{% endblock %}
 
 {% block main %}
-    <h1>Creer une nouvelle Sortie</h1>
 
-    {{ include('sortie/_form.html.twig') }}
+    <div class="form">
+        <h1>Creer une nouvelle Sortie</h1>
 
-            
+        {{ include('sortie/_form.html.twig') }}
 
+        <a href="{{ path('app_sortie_index') }}">Accueil</a>
+    </div>
 
-    <a href="{{ path('app_sortie_index') }}">Retour à la liste</a>
 {% endblock %}

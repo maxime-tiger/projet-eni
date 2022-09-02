@@ -2,7 +2,13 @@
 
 {% block title %}Modification de la Sortie{% endblock %}
 
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/form.css')}}">
+{% endblock %}
+
 {% block main %}
+
+    <div class="form">
     <h1>Modifier la Sortie</h1>
 
     {{ include('sortie/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
@@ -10,4 +16,6 @@
     <a href="{{ path('app_admin') }}">Retour à l'admin</a>
 
     {{ include('sortie/_delete_form.html.twig') }}
+    </div>
+    
 {% endblock %}

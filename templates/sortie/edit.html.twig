@@ -2,12 +2,21 @@
 
 {% block title %}Edit Sortie{% endblock %}
 
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/form.css')}}">
+{% endblock %}
+
 {% block main %}
-    <h1> Sortie</h1>
 
-    {{ include('sortie/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    <div class="form">
+        <h1> Sortie</h1>
+        
+        {{ include('sortie/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_sortie_index') }}">Acceuil</a>
+        <a href="{{ path('app_sortie_index') }}">Acceuil</a>
 
-    {{ include('sortie/_delete_form.html.twig') }}
+        {{ include('sortie/_delete_form.html.twig') }}
+    </div>
+
+    
 {% endblock %}

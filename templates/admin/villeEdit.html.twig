@@ -2,10 +2,18 @@
 
 {% block title %}Modification de la Ville{% endblock %}
 
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/form.css')}}">
+{% endblock %}
+
 {% block main %}
-    <h1>Modifier la Ville</h1>
 
-    {{ include('ville/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    <div class="form">
+        <h1>Modifier la Ville</h1>
 
-    <a href="{{ path('app_admin') }}">Retour à l'admin</a>
+            {{ include('ville/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+            <a href="{{ path('app_admin') }}">Retour à l'admin</a>
+    </div>
+    
 {% endblock %}

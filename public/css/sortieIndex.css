@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.recherche{
+  text-align: center;
+}
+
 .card-content{
   backdrop-filter: blur(6px);
   overflow-y: scroll;
