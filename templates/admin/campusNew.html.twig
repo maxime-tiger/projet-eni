@@ -2,10 +2,18 @@
 
 {% block title %}Création d'un campus{% endblock %}
 
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/form.css')}}">
+{% endblock %}
+
 {% block main %}
+
+    <div class="form">
     <h1>Créer un nouveau campus</h1>
 
     {{ include('campus/_form.html.twig') }}
 
     <a href="{{ path('app_admin') }}">Retour à l'admin</a>
+    </div>
+    
 {% endblock %}

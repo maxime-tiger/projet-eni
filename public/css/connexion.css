@@ -25,6 +25,7 @@ header {
     display: flex;
     justify-content: center;
     margin:15%;
+    padding: 20px;
 }
 
 .input-form {
@@ -62,6 +63,22 @@ header {
 .connexion-btn {
     width: 70%;
     margin: 10px 15% 10px 15%;
+    background-color: black;
+    border-radius: 4em;
+    color: white;
+    padding: 0.8em 0.8em;
+    cursor:pointer;
+    user-select:none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s;
+}
+
+.connexion-btn:hover {
+    transition-duration: 0.1s;
+    background-color: #3A3A3A;
 }
 
 .error {

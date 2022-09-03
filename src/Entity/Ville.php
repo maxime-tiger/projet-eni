@@ -18,9 +18,6 @@ class Ville
     #[ORM\Column(length: 100)]
     private ?string $nom = null;
 
-    /**
-     * @Assert\Regex ("/^(?:[0-8]\d|9[0-8])\d{3}$/", message="Code postal invalide.")
-     */
     #[ORM\Column(length: 5)]
     private ?string $codePostal = null;
 
@@ -90,9 +87,4 @@ class Ville
 
         return $this;
     }
-
-    /* public function __toString()
-    {
-        return $this->nom;
-    } */
 }

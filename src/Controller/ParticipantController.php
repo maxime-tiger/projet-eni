@@ -13,34 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[IsGranted('ROLE_USER')]
 #[Route('/participant')]
-class ParticipantController extends AbstractController
-{
-    #[Route('/', name: 'app_participant_index', methods: ['GET'])]
-    public function index(ParticipantRepository $participantRepository): Response
-    {
-            return $this->render('participant/index.html.twig', [
-            'participants' => $participantRepository->findAll(),
-        ]);
-    }
-
-    #[Route('/new', name: 'app_participant_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ParticipantRepository $participantRepository): Response
-    {
-        $participant = new Participant();
-        $form = $this->createForm(ParticipantType::class, $participant);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $participantRepository->add($participant, true);
-
-            return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('participant/new.html.twig', [
-            'participant' => $participant,
-            'form' => $form,
-        ]);
-    }
+class ParticipantController extends AbstractController{
 
     #[Route('/{id}', name: 'app_participant_show', methods: ['GET'])]
     public function show(Participant $participant, $id): Response
@@ -51,6 +24,8 @@ class ParticipantController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/{id}/edit', name: 'app_participant_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Participant $participant, ParticipantRepository $participantRepository): Response
     {
@@ -60,7 +35,7 @@ class ParticipantController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $participantRepository->add($participant, true);
 
-            return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('participant/edit.html.twig', [
@@ -68,6 +43,8 @@ class ParticipantController extends AbstractController
             'form' => $form,
         ]);
     }
+
+
 
     #[Route('/{id}', name: 'app_participant_delete', methods: ['POST'])]
     public function delete(Request $request, Participant $participant, ParticipantRepository $participantRepository): Response

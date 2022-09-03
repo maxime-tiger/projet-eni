@@ -2,12 +2,20 @@
 
 {% block title %}Modification du Campus{% endblock %}
 
+{% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/form.css')}}">
+{% endblock %}
+
 {% block main %}
-    <h1>Modifier le campus</h1>
 
-    {{ include('campus/_form.html.twig', {'button_label': 'Modifier'}) }}
+    <div class="form">
+        <h1>Modifier le campus</h1>
 
-    <a href="{{ path('app_admin') }}">Retour à l'admin</a>
+        {{ include('campus/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    {{ include('campus/_delete_form.html.twig') }}
+        <a href="{{ path('app_admin') }}">Retour à l'admin</a>
+
+        {{ include('campus/_delete_form.html.twig') }}
+    </div>
+    
 {% endblock %}
